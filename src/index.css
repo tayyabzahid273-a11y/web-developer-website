@@ -1,0 +1,54 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --blush: #fde8ea;
+    --cream: #fdf8ee;
+    --sage: #89a67a;
+    --terracotta: #c96f4a;
+    --ink: #3d3330;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-cream-100 font-body text-ink antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-heading tracking-tight;
+  }
+
+  ::selection {
+    @apply bg-blush-300 text-ink;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-terracotta-500 px-6 py-3
+           font-medium text-cream-50 shadow-soft transition
+           hover:bg-terracotta-600 focus:outline-none focus:ring-2 focus:ring-terracotta-300;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-full border border-sage-300 bg-sage-100
+           px-6 py-3 font-medium text-sage-600 transition hover:bg-sage-200;
+  }
+
+  .card {
+    @apply rounded-4xl bg-cream-50 p-6 shadow-card;
+  }
+
+  .input-field {
+    @apply w-full rounded-2xl border border-blush-200 bg-cream-50 px-4 py-3 text-ink
+           placeholder:text-ink/40 focus:border-terracotta-400 focus:outline-none
+           focus:ring-2 focus:ring-blush-300;
+  }
+}
