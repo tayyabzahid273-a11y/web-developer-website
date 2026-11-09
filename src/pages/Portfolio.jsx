@@ -1,23 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { projects } from "../data/projects";
 
 const ease = [0.22, 1, 0.36, 1];
 
 const categories = ["All", "Landing Page", "E-commerce", "Branding", "UI/UX"];
-
-// Sample projects: replace with your real work
-const projects = [
-  { id: 1, title: "Sunny Bakery", category: "E-commerce", icon: "🥐", desc: "Online ordering for a neighbourhood bakery.", gradient: "from-terracotta-300/40 to-cream-200" },
-  { id: 2, title: "Lumen Skincare", category: "Branding", icon: "🧴", desc: "Logo, palette and packaging look for a skincare line.", gradient: "from-blush-200 to-blush-100" },
-  { id: 3, title: "Fernhill Yoga", category: "Landing Page", icon: "🧘", desc: "A calm landing page that doubled class sign-ups.", gradient: "from-sage-200 to-sage-100" },
-  { id: 4, title: "Pocket Budget", category: "UI/UX", icon: "💸", desc: "A friendly money-tracking app interface.", gradient: "from-cream-300 to-blush-100" },
-  { id: 5, title: "Bloom Florist", category: "E-commerce", icon: "💐", desc: "A seasonal flower shop with same-day delivery.", gradient: "from-blush-300/60 to-cream-100" },
-  { id: 6, title: "Cloudnine Travel", category: "Landing Page", icon: "✈️", desc: "A dreamy campaign page for a boutique travel agency.", gradient: "from-sage-100 to-cream-200" },
-  { id: 7, title: "Mellow Café", category: "Branding", icon: "☕", desc: "Warm, hand-drawn identity for a neighbourhood café.", gradient: "from-terracotta-300/30 to-blush-100" },
-  { id: 8, title: "TaskNest", category: "UI/UX", icon: "✅", desc: "A clean to-do and planning dashboard.", gradient: "from-sage-200 to-cream-100" },
-  { id: 9, title: "Oak & Ivy", category: "E-commerce", icon: "🪑", desc: "A handmade-furniture store with a calm, airy feel.", gradient: "from-cream-200 to-sage-100" },
-];
 
 function ProjectCard({ project }) {
   return (
@@ -28,35 +16,43 @@ function ProjectCard({ project }) {
       exit={{ opacity: 0, scale: 0.9 }}
       transition={{ duration: 0.4, ease }}
       whileHover={{ y: -8 }}
-      className="group cursor-pointer overflow-hidden rounded-4xl bg-cream-50 shadow-card transition-shadow duration-300 hover:shadow-soft"
+      className="group overflow-hidden rounded-4xl bg-cream-50 shadow-card transition-shadow duration-300 hover:shadow-soft"
     >
-      {/* Thumbnail */}
-      <div className={`relative aspect-[4/3] overflow-hidden bg-gradient-to-br ${project.gradient}`}>
-        <div className="absolute inset-4 flex flex-col overflow-hidden rounded-2xl bg-cream-50/90 shadow-card transition-transform duration-500 group-hover:scale-105">
-          <div className="flex items-center gap-1.5 border-b border-blush-100 px-3 py-2">
-            <span className="h-2 w-2 rounded-full bg-blush-300" />
-            <span className="h-2 w-2 rounded-full bg-cream-300" />
-            <span className="h-2 w-2 rounded-full bg-sage-300" />
+      {/* The whole card is one link */}
+      
+      <Link to={`/project/${project.id}`} className="...">
+        {/* Thumbnail */}
+        <div className={`relative aspect-[4/3] overflow-hidden bg-gradient-to-br ${project.gradient}`}>
+          <div className="absolute inset-4 flex flex-col overflow-hidden rounded-2xl bg-cream-50/90 shadow-card transition-transform duration-500 group-hover:scale-105">
+            <div className="flex items-center gap-1.5 border-b border-blush-100 px-3 py-2">
+              <span className="h-2 w-2 rounded-full bg-blush-300" />
+              <span className="h-2 w-2 rounded-full bg-cream-300" />
+              <span className="h-2 w-2 rounded-full bg-sage-300" />
+            </div>
+            <div className="flex flex-1 flex-col items-center justify-center gap-2 p-4">
+              <span className="text-4xl">{project.icon}</span>
+              <span className="h-2 w-24 rounded-full bg-ink/10" />
+              <span className="h-2 w-16 rounded-full bg-ink/5" />
+            </div>
           </div>
-          <div className="flex flex-1 flex-col items-center justify-center gap-2 p-4">
-            <span className="text-4xl">{project.icon}</span>
-            <span className="h-2 w-24 rounded-full bg-ink/10" />
-            <span className="h-2 w-16 rounded-full bg-ink/5" />
+
+          {/* "View project" appears on hover */}
+          <div className="absolute inset-0 flex items-center justify-center bg-ink/30 opacity-0 backdrop-blur-[2px] transition-opacity duration-300 group-hover:opacity-100">
+            <span className="rounded-full bg-cream-50 px-5 py-2 text-sm font-medium text-terracotta-600">
+              View project →
+            </span>
           </div>
         </div>
 
-        {/* Hover overlay */}
-        <div className="absolute inset-0 flex items-center justify-center bg-ink/30 opacity-0 backdrop-blur-[2px] transition-opacity duration-300 group-hover:opacity-100">
-          <span className="rounded-full bg-cream-50 px-5 py-2 text-sm font-medium text-terracotta-600">View project →</span>
+        {/* Info */}
+        <div className="p-6">
+          <span className="rounded-full bg-sage-100 px-3 py-1 text-xs font-medium text-sage-600">
+            {project.category}
+          </span>
+          <h3 className="mt-3 text-xl font-semibold">{project.title}</h3>
+          <p className="mt-1 text-sm leading-relaxed text-ink/70">{project.desc}</p>
         </div>
-      </div>
-
-      {/* Info */}
-      <div className="p-6">
-        <span className="rounded-full bg-sage-100 px-3 py-1 text-xs font-medium text-sage-600">{project.category}</span>
-        <h3 className="mt-3 text-xl font-semibold">{project.title}</h3>
-        <p className="mt-1 text-sm leading-relaxed text-ink/70">{project.desc}</p>
-      </div>
+      </Link>
     </motion.article>
   );
 }
