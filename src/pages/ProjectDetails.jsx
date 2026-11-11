@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { projects } from "../data/projects";
+import { buildDemoPage } from "../utils/buildDemoPage";
 
 const ease = [0.22, 1, 0.36, 1];
 
@@ -39,7 +40,7 @@ export default function ProjectDetails() {
 
   return (
     <div>
-      {/* Header + large preview */}
+      {/* Header */}
       <section className="relative overflow-hidden bg-gradient-to-b from-blush-50 via-cream-100 to-cream-100 pb-16 pt-32">
         <div aria-hidden="true" className="pointer-events-none absolute -left-20 top-24 h-64 w-64 rounded-full bg-blush-200/60 blur-2xl" />
         <div aria-hidden="true" className="pointer-events-none absolute -right-20 top-10 h-64 w-64 rounded-full bg-sage-200/60 blur-2xl" />
@@ -72,39 +73,20 @@ export default function ProjectDetails() {
             </motion.p>
           </motion.div>
 
-          {/* Large image placeholder: swap for an <img> when you have real screenshots */}
+          {/* ASAL LIVE WEBSITE WALA IFRAME */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96, y: 40 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.3, ease }}
             className={`relative mt-12 aspect-[16/9] overflow-hidden rounded-4xl bg-gradient-to-br shadow-soft ${project.gradient}`}
           >
-            <div className="absolute inset-4 flex flex-col overflow-hidden rounded-3xl bg-cream-50/90 shadow-card sm:inset-8">
-              {/* Browser bar */}
-              <div className="flex items-center gap-2 border-b border-blush-100 px-4 py-3">
-                <span className="h-2.5 w-2.5 rounded-full bg-blush-300" />
-                <span className="h-2.5 w-2.5 rounded-full bg-cream-300" />
-                <span className="h-2.5 w-2.5 rounded-full bg-sage-300" />
-                <span className="ml-3 h-5 flex-1 rounded-full bg-cream-200" />
-              </div>
-
-              {/* Fake page content */}
-              <div className="flex flex-1 flex-col items-center justify-center gap-3 p-6">
-                <motion.span
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  className="text-6xl sm:text-7xl"
-                >
-                  {project.icon}
-                </motion.span>
-                <span className="h-3 w-40 rounded-full bg-ink/10 sm:w-56" />
-                <span className="h-3 w-28 rounded-full bg-ink/5 sm:w-40" />
-                <div className="mt-4 grid w-full max-w-md grid-cols-3 gap-3">
-                  {[0, 1, 2].map((n) => (
-                    <span key={n} className="h-12 rounded-2xl bg-blush-100 sm:h-16" />
-                  ))}
-                </div>
-              </div>
+            <div className="absolute inset-2 overflow-hidden rounded-3xl bg-white shadow-card sm:inset-4">
+              <iframe
+                title={`${project.title} Live Demo`}
+                srcDoc={buildDemoPage(project)}
+                className="h-full w-full border-0"
+                sandbox="allow-scripts allow-same-origin"
+              />
             </div>
           </motion.div>
         </div>
@@ -176,7 +158,7 @@ export default function ProjectDetails() {
                   <dd className="mt-1 font-medium">{project.duration}</dd>
                 </div>
                 <div>
-                  <dt className="text-ink/50">What we did</dt>
+                  <dt className="text-ink/50">Tech stack</dt>
                   <dd className="mt-2 flex flex-wrap gap-2">
                     {project.services.map((s) => (
                       <span key={s} className="rounded-full bg-blush-100 px-3 py-1 text-xs font-medium text-ink/70">
@@ -188,7 +170,7 @@ export default function ProjectDetails() {
               </dl>
 
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="mt-8">
-                <Link to="/order" className="btn-primary w-full">
+                <Link to="/order" className="btn-secondary w-full">
                   Start a similar project
                 </Link>
               </motion.div>

@@ -5,7 +5,8 @@ import { projects } from "../data/projects";
 
 const ease = [0.22, 1, 0.36, 1];
 
-const categories = ["All", "Landing Page", "E-commerce", "Branding", "UI/UX"];
+// Categories updated to match the new projects data
+const categories = ["All", "Full-Stack", "UI/UX", "Frontend"];
 
 function ProjectCard({ project }) {
   return (
@@ -19,8 +20,7 @@ function ProjectCard({ project }) {
       className="group overflow-hidden rounded-4xl bg-cream-50 shadow-card transition-shadow duration-300 hover:shadow-soft"
     >
       {/* The whole card is one link */}
-      
-      <Link to={`/project/${project.id}`} className="...">
+      <Link to={`/project/${project.id}`} className="block">
         {/* Thumbnail */}
         <div className={`relative aspect-[4/3] overflow-hidden bg-gradient-to-br ${project.gradient}`}>
           <div className="absolute inset-4 flex flex-col overflow-hidden rounded-2xl bg-cream-50/90 shadow-card transition-transform duration-500 group-hover:scale-105">
