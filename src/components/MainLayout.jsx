@@ -40,7 +40,7 @@ function Navbar() {
       }`}
     >
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Link to="/" className="flex items-center">
+        <Link to="/" className="flex items-center gap-3">
           <img src="/logo.png" alt="Web Developer" className="h-10 w-auto rounded-md" />
         </Link>
 
@@ -127,8 +127,9 @@ function Footer() {
       <div className="mx-auto max-w-6xl px-6 py-16">
         <div className="grid gap-12 md:grid-cols-4">
           <div className="md:col-span-2">
-            <div className="mb-4">
+            <div className="mb-4 flex items-center gap-3">
               <img src="/logo.png" alt="Web Developer" className="h-10 w-auto rounded-md" />
+              <span className="font-heading text-xl font-semibold text-cream-100">Web Developer</span>
             </div>
             <p className="max-w-sm text-cream-100/60">
               A cozy web design studio making thoughtful, beautiful websites for brands that care about the details.
