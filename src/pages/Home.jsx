@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import BeforeAfterSlider from "../components/BeforeAfterSlider"; // Naya Slider Import kiya
 
 const services = [
   { icon: "🎨", title: "Custom Web Design", desc: "Bespoke, pixel-perfect websites crafted around your brand and your audience.", tint: "bg-blush-100" },
@@ -131,5 +132,14 @@ function Services() {
 }
 
 export default function Home() {
-  return <><Hero /><Services /></>;
+  return (
+    <>
+      <Hero />
+      {/* Naya Slider Add kiya gaya hai Hero ke baad */}
+      <div className="bg-cream-100 pb-10">
+        <BeforeAfterSlider />
+      </div>
+      <Services />
+    </>
+  );
 }
