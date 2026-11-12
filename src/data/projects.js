@@ -1,21 +1,27 @@
 // Portfolio projects
 export const projects = [
-  {
+   {
     id: 1,
-    title: "SaaS Landing Page",
-    category: "Landing Page",
-    icon: "🚀",
-    desc: "A high-converting landing page for a modern SaaS product with clean UI and smooth animations.",
-    gradient: "from-blush-200 to-cream-200",
-    duration: "1 week",
-    services: ["React", "Tailwind CSS", "Framer Motion"],
-    demoUrl: "https://wa.me/923001234567?text=Hi, I want a website like SaaS Landing Page",
+    title: "AI Chatbot Dashboard",
+    category: "AI",
+    icon: "🤖",
+    desc: "A control panel for monitoring and managing an AI chatbot, with live conversations, a knowledge base and analytics.",
+    gradient: "from-blush-300/60 to-sage-200",
+    duration: "4 weeks",
+    services: ["React", "Tailwind CSS", "Framer Motion", "Node.js", "AI API integration"],
+    demoUrl: "https://example.com",
     about: [
-      "This landing page is designed to turn visitors into customers. Sections reveal themselves as the visitor scrolls, guiding attention from the headline to the offer and finally to a clear call to action.",
-      "A soft pastel palette and carefully chosen typography give the page a friendly, premium feel, while the animations stay subtle so they support the message instead of distracting from it."
+      "This dashboard gives teams a clear window into how their AI chatbot is performing. Conversations appear in real time, so it is easy to see what customers are asking and how the assistant is answering.",
+      "A knowledge base manager lets non-technical team members update what the bot knows, while an analytics view highlights satisfaction, common questions and areas to improve.",
     ],
-    highlights: ["Smooth scroll-triggered animations", "Cohesive pastel colour theme", "Conversion-focused layout", "Responsive on mobile and desktop"]
+    highlights: [
+      "Live conversation monitor",
+      "Knowledge base management",
+      "Usage and satisfaction analytics",
+      "Clean, responsive dashboard interface",
+    ],
   },
+ 
   {
     id: 2,
     title: "Restaurant / Cafe Website",
@@ -33,21 +39,27 @@ export const projects = [
     highlights: ["Interactive digital menu", "Table reservation form", "High-quality image galleries", "Mobile-friendly design"]
   },
   {
-    id: 3,
-    title: "Fitness / Gym Portal",
-    category: "Landing Page",
-    icon: "💪",
-    desc: "An energetic website for a fitness center with class schedules and trainer profiles.",
-    gradient: "from-sage-200 to-cream-100",
-    duration: "3 weeks",
-    services: ["React", "Tailwind CSS", "Dashboard UI"],
-    demoUrl: "https://wa.me/923001234567?text=Hi, I want a website like Fitness Gym Portal",
+    id: 4,
+    title: "AI SaaS Landing Page",
+    category: "AI",
+    icon: "🧠",
+    desc: "A premium, conversion-focused landing page for an AI product, with an animated chat demo and glowing gradients.",
+    gradient: "from-sage-200 to-blush-200",
+    duration: "2 weeks",
+    services: ["React", "Tailwind CSS", "Framer Motion", "CSS animations"],
+    demoUrl: "https://example.com",
     about: [
-      "This project was built to help gyms attract new members. It features a bold, energetic design with a clear class schedule and pricing plans.",
-      "Users can easily browse different training programs and contact trainers directly."
+      "This landing page is built to explain an AI product in seconds and turn curiosity into sign-ups. An animated chat demo in the hero shows the product in action before the visitor reads a word.",
+      "Glowing gradients, smooth scroll reveals and a clear pricing and call-to-action flow give the page a modern, premium feel.",
     ],
-    highlights: ["Dynamic class schedules", "Trainer profiles", "Membership pricing tables", "Energetic color palette"]
+    highlights: [
+      "Animated chat demo in the hero",
+      "Glowing gradient design",
+      "Pricing and call-to-action sections",
+      "Conversion-focused layout",
+    ],
   },
+  
   {
     id: 4,
     title: "Real Estate Agency",
@@ -239,5 +251,39 @@ export const projects = [
       "The design features a subtle animated background and smooth transitions."
     ],
     highlights: ["Project showcase", "Downloadable resume", "Contact form", "Subtle animations"]
-  }
+  },
+  
+   {
+    id: 16,
+    title: "SaaS Landing Page",
+    category: "Landing Page",
+    icon: "🚀",
+    desc: "A high-converting landing page for a modern SaaS product with clean UI and smooth animations.",
+    gradient: "from-blush-200 to-cream-200",
+    duration: "1 week",
+    services: ["React", "Tailwind CSS", "Framer Motion"],
+    demoUrl: "https://wa.me/923001234567?text=Hi, I want a website like SaaS Landing Page",
+    about: [
+      "This landing page is designed to turn visitors into customers. Sections reveal themselves as the visitor scrolls, guiding attention from the headline to the offer and finally to a clear call to action.",
+      "A soft pastel palette and carefully chosen typography give the page a friendly, premium feel, while the animations stay subtle so they support the message instead of distracting from it."
+    ],
+    highlights: ["Smooth scroll-triggered animations", "Cohesive pastel colour theme", "Conversion-focused layout", "Responsive on mobile and desktop"]
+  },
+  {
+    id: 17,
+    title: "Fitness / Gym Portal",
+    category: "Landing Page",
+    icon: "💪",
+    desc: "An energetic website for a fitness center with class schedules and trainer profiles.",
+    gradient: "from-sage-200 to-cream-100",
+    duration: "3 weeks",
+    services: ["React", "Tailwind CSS", "Dashboard UI"],
+    demoUrl: "https://wa.me/923001234567?text=Hi, I want a website like Fitness Gym Portal",
+    about: [
+      "This project was built to help gyms attract new members. It features a bold, energetic design with a clear class schedule and pricing plans.",
+      "Users can easily browse different training programs and contact trainers directly."
+    ],
+    highlights: ["Dynamic class schedules", "Trainer profiles", "Membership pricing tables", "Energetic color palette"]
+  },
+  
 ];

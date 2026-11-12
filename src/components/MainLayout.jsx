@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import AIChatWidget from "./AIChatWidget";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -189,6 +190,7 @@ export default function Layout() {
         <Outlet />
       </motion.main>
       <Footer />
+      <AIChatWidget />
     </div>
   );
 }

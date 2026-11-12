@@ -1,8 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { projects } from "../data/projects";
-import { buildDemoPage } from "../utils/buildDemoPage";
-
+import { buildDemoPage } from "../components/buildDemoPage";
 const ease = [0.22, 1, 0.36, 1];
 
 const stagger = {
