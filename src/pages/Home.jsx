@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import BeforeAfterSlider from "../components/BeforeAfterSlider"; // Naya Slider Import kiya
+import BeforeAfterSlider from "../components/BeforeAfterSlider";
+import TiltCard from "../components/TiltCard"; // <-- TiltCard yahan import kiya
 
 const services = [
   { icon: "🎨", title: "Custom Web Design", desc: "Bespoke, pixel-perfect websites crafted around your brand and your audience.", tint: "bg-blush-100" },
@@ -107,23 +108,26 @@ function Services() {
 
         <div className="grid gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
           {services.map((service, i) => (
-            <motion.article
+            <motion.div
               key={service.title}
-              initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.6, delay: (i % 3) * 0.12, ease }} whileHover={{ y: -10, rotate: -0.6 }}
-              className="card group cursor-pointer p-6 transition-shadow duration-300 hover:shadow-soft sm:p-8"
+              initial={{ opacity: 0, y: 40 }} 
+              whileInView={{ opacity: 1, y: 0 }} 
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.6, delay: (i % 3) * 0.12, ease }}
             >
-              <motion.div whileHover={{ scale: 1.15, rotate: 8 }} transition={{ type: "spring", stiffness: 300 }}
-                className={`mb-5 flex h-12 w-12 items-center justify-center rounded-2xl text-xl sm:h-14 sm:w-14 sm:text-2xl ${service.tint}`}
-              >
-                {service.icon}
-              </motion.div>
-              <h3 className="mb-2 text-lg font-semibold sm:text-xl">{service.title}</h3>
-              <p className="text-sm leading-relaxed text-ink/70 sm:text-base">{service.desc}</p>
-              <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-terracotta-500 sm:mt-5">
-                Learn more <span className="transition-transform duration-300 group-hover:translate-x-1.5">→</span>
-              </span>
-            </motion.article>
+              {/* Yahan TiltCard laga diya hai */}
+              <TiltCard>
+                <div className={`mb-5 flex h-12 w-12 items-center justify-center rounded-2xl text-xl sm:h-14 sm:w-14 sm:text-2xl ${service.tint}`}>
+                  {service.icon}
+                </div>
+                <h3 className="mb-2 text-lg font-semibold sm:text-xl">{service.title}</h3>
+                <p className="text-sm leading-relaxed text-ink/70 sm:text-base">{service.desc}</p>
+                
+                <Link to="/order" className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-terracotta-500 transition-colors hover:text-terracotta-600 sm:mt-5">
+                  Learn more <span className="transition-transform duration-300 group-hover:translate-x-1.5">→</span>
+                </Link>
+              </TiltCard>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -135,7 +139,6 @@ export default function Home() {
   return (
     <>
       <Hero />
-      {/* Naya Slider Add kiya gaya hai Hero ke baad */}
       <div className="bg-cream-100 pb-10">
         <BeforeAfterSlider />
       </div>
