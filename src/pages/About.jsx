@@ -6,23 +6,23 @@ const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.12, delay
 const fadeUp = { hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0, transition: { duration: 0.7, ease } } };
 
 const stats = [
-  { num: "120+", label: "Websites launched", tint: "bg-blush-100" },
-  { num: "4.9★", label: "Average client rating", tint: "bg-sage-100" },
-  { num: "7 days", label: "Average first draft", tint: "bg-cream-200" },
-  { num: "5 yrs", label: "Designing for the web", tint: "bg-terracotta-300/30" },
+  { num: "5+", label: "Years of Coding", tint: "bg-blush-100" },
+  { num: "100%", label: "Client Satisfaction", tint: "bg-sage-100" },
+  { num: "15+", label: "Projects Built", tint: "bg-cream-200" },
+  { num: "24/7", label: "Support", tint: "bg-terracotta-300/30" },
 ];
 
 const values = [
-  { icon: "💡", title: "Thoughtful design", desc: "Every colour, font and pixel has a reason. We design with your customers in mind, not just trends." },
-  { icon: "🤝", title: "Honest communication", desc: "Clear timelines, fair prices and regular updates. You always know where your project stands." },
-  { icon: "🌱", title: "Built to last", desc: "Fast, accessible and easy to maintain, so your website keeps growing with your business." },
+  { icon: "💡", title: "Modern Solutions", desc: "I don't just write code; I build modern, fast, and user-friendly experiences using the latest tech like React and AI." },
+  { icon: "🤝", title: "Honest & Direct", desc: "No hidden fees, no false promises. I communicate clearly and deliver exactly what we agree on." },
+  { icon: "🚀", title: "Built for Growth", desc: "Every website I build is optimized for performance, SEO, and ready to scale with your business." },
 ];
 
 const process = [
-  { num: "01", title: "Discover", desc: "We learn about your brand, goals and audience." },
-  { num: "02", title: "Design", desc: "Wireframes and a first draft in about a week." },
-  { num: "03", title: "Build", desc: "We bring the approved design to life, fully responsive." },
-  { num: "04", title: "Launch", desc: "Testing, launch and support so you're never on your own." },
+  { num: "01", title: "Discovery", desc: "We discuss your goals, your brand, and exactly what you need." },
+  { num: "02", title: "Design", desc: "I create a modern, responsive design that fits your vision." },
+  { num: "03", title: "Development", desc: "Clean code, smooth animations, and a pixel-perfect build." },
+  { num: "04", title: "Launch", desc: "We deploy your site, test everything, and I hand over the keys." },
 ];
 
 function Blob({ className, duration = 8, delay = 0 }) {
@@ -47,34 +47,36 @@ function Reveal({ children, delay = 0, className = "" }) {
 export default function About() {
   return (
     <div>
+      {/* Header */}
       <section className="relative overflow-hidden bg-gradient-to-b from-blush-50 via-cream-100 to-cream-100 pb-16 pt-32 sm:pb-20 sm:pt-36">
         <Blob className="-left-16 top-24 h-56 w-56 rounded-full bg-blush-200/70 blur-sm" duration={9} />
         <Blob className="right-[8%] top-28 h-32 w-32 rounded-[42%_58%_63%_37%/45%_40%_60%_55%] bg-sage-200/80" duration={7} delay={0.3} />
         <Blob className="bottom-10 left-[20%] h-12 w-12 rounded-full bg-terracotta-300/60" duration={6} delay={0.6} />
 
         <motion.div variants={stagger} initial="hidden" animate="show" className="relative z-10 mx-auto max-w-4xl px-6 text-center">
-          <motion.p variants={fadeUp} className="mb-4 text-sm font-semibold uppercase tracking-widest text-terracotta-500">About us</motion.p>
+          <motion.p variants={fadeUp} className="mb-4 text-sm font-semibold uppercase tracking-widest text-terracotta-500">Meet the Developer</motion.p>
           <motion.h1 variants={fadeUp} className="font-heading text-3xl font-semibold leading-[1.1] sm:text-4xl md:text-5xl lg:text-6xl">
-            Designers who sweat the <span className="italic text-terracotta-500">little</span> things
+            Hi, I'm <span className="italic text-terracotta-500">Tayyab</span>. I build digital experiences.
           </motion.h1>
           <motion.p variants={fadeUp} className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-ink/70 sm:mt-6 sm:text-lg">
-            We're a small, friendly web design studio that turns ideas into calm, beautiful and easy-to-use websites.
+            A passionate freelance web developer from Sargodha, turning ideas into beautiful, high-performing websites for over 5 years.
           </motion.p>
         </motion.div>
       </section>
 
+      {/* Story + Stats */}
       <section className="bg-cream-100 py-16 sm:py-20">
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-6 sm:gap-14 lg:grid-cols-2">
           <Reveal>
-            <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-terracotta-500">Our story</p>
-            <h2 className="font-heading text-3xl font-semibold sm:text-4xl">From a side project to a studio</h2>
+            <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-terracotta-500">My Journey</p>
+            <h2 className="font-heading text-3xl font-semibold sm:text-4xl">5 years of crafting the web</h2>
             <p className="mt-4 text-sm leading-relaxed text-ink/70 sm:mt-5 sm:text-base">
-              It started with a website for a friend's bakery. That one small project grew into a studio that has helped over a hundred brands find their place online.
+              My journey started 5 years ago with a simple curiosity about how websites work. Since then, I've dived deep into the world of web development, mastering React, JavaScript, and modern design systems.
             </p>
             <p className="mt-4 text-sm leading-relaxed text-ink/70 sm:text-base">
-              We believe a great website should feel like a warm welcome: clear, inviting and effortless. So we keep our process simple, our communication honest and our designs thoughtful.
+              Today, as a freelancer, I help businesses and individuals build websites that don't just look stunning, but also perform flawlessly. Whether it's a complex web app or a simple landing page, I treat every project like my own.
             </p>
-            <Link to="/portfolio" className="btn-secondary mt-6 sm:mt-8">See our work</Link>
+            <Link to="/portfolio" className="btn-secondary mt-6 sm:mt-8">See my work</Link>
           </Reveal>
 
           <div className="grid grid-cols-2 gap-4 sm:gap-5">
@@ -91,11 +93,12 @@ export default function About() {
         </div>
       </section>
 
+      {/* Values */}
       <section className="bg-blush-50 py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-6">
           <Reveal className="mx-auto mb-10 max-w-2xl text-center sm:mb-14">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-terracotta-500">What we believe</p>
-            <h2 className="font-heading text-3xl font-semibold sm:text-4xl md:text-5xl">Our values</h2>
+            <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-terracotta-500">What I believe</p>
+            <h2 className="font-heading text-3xl font-semibold sm:text-4xl md:text-5xl">My Core Values</h2>
           </Reveal>
 
           <div className="grid gap-6 sm:gap-8 md:grid-cols-3">
@@ -117,10 +120,11 @@ export default function About() {
         </div>
       </section>
 
+      {/* Process */}
       <section className="bg-cream-100 py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-6">
           <Reveal className="mx-auto mb-10 max-w-2xl text-center sm:mb-14">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-terracotta-500">How we work</p>
+            <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-terracotta-500">How I work</p>
             <h2 className="font-heading text-3xl font-semibold sm:text-4xl md:text-5xl">A simple four-step process</h2>
           </Reveal>
 
@@ -139,6 +143,7 @@ export default function About() {
         </div>
       </section>
 
+      {/* CTA */}
       <section className="bg-cream-100 pb-16 sm:pb-24">
         <div className="mx-auto max-w-6xl px-6">
           <Reveal>
@@ -146,14 +151,11 @@ export default function About() {
               <Blob className="-left-10 -top-10 h-40 w-40 rounded-full bg-cream-50/10" duration={9} />
               <Blob className="-bottom-12 -right-8 h-52 w-52 rounded-full bg-blush-300/20" duration={11} delay={0.4} />
               <div className="relative">
-                <h2 className="font-heading text-2xl font-semibold sm:text-3xl md:text-4xl">Ready to start your project?</h2>
-                <p className="mx-auto mt-3 max-w-xl text-sm text-cream-100/80 sm:mt-4 sm:text-base">Tell us what you need and we'll take it from there.</p>
+                <h2 className="font-heading text-2xl font-semibold sm:text-3xl md:text-4xl">Ready to work together?</h2>
+                <p className="mx-auto mt-3 max-w-xl text-sm text-cream-100/80 sm:mt-4 sm:text-base">Let's build something amazing for your business.</p>
                 <div className="mt-6 flex flex-wrap justify-center gap-3 sm:mt-8 sm:gap-4">
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
-                    <Link to="/order" className="inline-flex items-center justify-center rounded-full bg-cream-50 px-5 py-2.5 text-sm font-medium text-terracotta-600 shadow-soft transition hover:bg-cream-100 sm:px-6 sm:py-3 sm:text-base">Place an Order</Link>
-                  </motion.div>
-                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
-                    <Link to="/portfolio" className="inline-flex items-center justify-center rounded-full border border-cream-50/60 px-5 py-2.5 text-sm font-medium text-cream-50 transition hover:bg-cream-50/10 sm:px-6 sm:py-3 sm:text-base">View Portfolio</Link>
+                    <Link to="/order" className="inline-flex items-center justify-center rounded-full bg-cream-50 px-5 py-2.5 text-sm font-medium text-terracotta-600 shadow-soft transition hover:bg-cream-100 sm:px-6 sm:py-3 sm:text-base">Start a Project</Link>
                   </motion.div>
                 </div>
               </div>
