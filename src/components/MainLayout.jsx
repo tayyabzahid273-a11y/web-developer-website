@@ -25,7 +25,6 @@ function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close the mobile menu whenever the page changes
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
@@ -36,12 +35,16 @@ function Navbar() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.7, ease }}
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-cream-50/80 shadow-card backdrop-blur-md" : "bg-transparent"
+        scrolled || open ? "bg-cream-50/90 shadow-card backdrop-blur-md" : "bg-transparent"
       }`}
     >
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+        {/* LOGO & NAME */}
         <Link to="/" className="flex items-center gap-3">
-          <img src="/logo.png" alt="Web Developer" className="h-10 w-auto rounded-md" />
+          <img src="/logo.png" alt="Web Developer" className="h-9 w-auto rounded-md" />
+          <span className="font-heading text-xl font-semibold text-ink hidden sm:block">
+            Web Developer
+          </span>
         </Link>
 
         {/* Desktop links */}
@@ -70,11 +73,11 @@ function Navbar() {
           Start an Order
         </Link>
 
-        {/* Mobile toggle */}
+        {/* Mobile toggle (3 lines) */}
         <button
           onClick={() => setOpen((o) => !o)}
           aria-label="Toggle menu"
-          className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden"
+          className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden z-50"
         >
           <motion.span animate={open ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }} className="h-0.5 w-6 bg-ink" />
           <motion.span animate={{ opacity: open ? 0 : 1 }} className="h-0.5 w-6 bg-ink" />
@@ -82,32 +85,34 @@ function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile menu */}
+      {/* Mobile menu (Fixed styling) */}
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.25 }}
-            className="mx-4 mb-4 rounded-3xl bg-cream-50 p-6 shadow-card md:hidden"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="absolute top-full left-0 right-0 bg-cream-50 border-t border-blush-100 shadow-xl md:hidden overflow-hidden"
           >
-            <ul className="flex flex-col gap-4">
+            <ul className="flex flex-col gap-2 p-4">
               {navLinks.map((link) => (
                 <li key={link.to}>
                   <NavLink
                     to={link.to}
                     end={link.to === "/"}
                     className={({ isActive }) =>
-                      `block font-medium ${isActive ? "text-terracotta-600" : "text-ink/80 hover:text-terracotta-600"}`
+                      `block rounded-xl px-4 py-3 text-base font-medium transition-colors ${
+                        isActive ? "bg-blush-100 text-terracotta-600" : "text-ink/80 hover:bg-blush-50"
+                      }`
                     }
                   >
                     {link.label}
                   </NavLink>
                 </li>
               ))}
-              <li>
-                <Link to="/order" className="btn-primary w-full">
+              <li className="mt-2">
+                <Link to="/order" className="btn-primary w-full text-center py-3">
                   Start an Order
                 </Link>
               </li>
@@ -129,6 +134,7 @@ function Footer() {
           <div className="md:col-span-2">
             <div className="mb-4 flex items-center gap-3">
               <img src="/logo.png" alt="Web Developer" className="h-10 w-auto rounded-md" />
+              {/* FOOTER MEIN BHI NAME ADD KIYA */}
               <span className="font-heading text-xl font-semibold text-cream-100">Web Developer</span>
             </div>
             <p className="max-w-sm text-cream-100/60">
@@ -152,7 +158,7 @@ function Footer() {
           <div>
             <h4 className="mb-4 font-heading text-lg">Say hello</h4>
             <ul className="space-y-2 text-cream-100/60">
-              <li>hello@yourdomain.com</li>
+              <li>hello@webdeveloper.com</li>
               <li>+92 300 0000000</li>
               <li>Mon–Fri, 9am–6pm</li>
             </ul>
@@ -173,7 +179,6 @@ function Footer() {
 export default function Layout() {
   const { pathname } = useLocation();
 
-  // Start every page at the top
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
