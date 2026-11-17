@@ -4,23 +4,18 @@ import { PrismaClient } from '@prisma/client';
 
 const app = express();
 const prisma = new PrismaClient();
-const PORT = process.env.PORT || 4000;
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Test Route (Browser mein check karne ke liye)
-app.get('/', (req, res) => {
-  res.send('Backend server is running perfectly! 🚀');
+app.get('/api', (req, res) => {
+  res.send('Backend is running on Vercel! 🚀');
 });
 
-// Order Place Karne Ka Route
 app.post('/api/orders', async (req, res) => {
   try {
     const { customerName, email, phone, service, amount } = req.body;
 
-    // Database mein order save karna
     const newOrder = await prisma.order.create({
       data: {
         customerName,
@@ -45,7 +40,4 @@ app.post('/api/orders', async (req, res) => {
   }
 });
 
-// Server Start
-app.listen(PORT, () => {
-  console.log(`🚀 Server is running on http://localhost:${PORT}`);
-});
+export default app;

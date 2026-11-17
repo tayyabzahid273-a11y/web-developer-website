@@ -3,11 +3,10 @@ import { motion, AnimatePresence } from "framer-motion";
 
 /* ----------------------------- Config ----------------------------- */
 
-const API_URL = "http://localhost:4000/api/orders";
+const API_URL = "/api/orders";
 
-// Manual payment settings
-const PAYMENT_NUMBER = "0314-3422692"; // JazzCash / Easypaisa
-const WHATSAPP_NUMBER = "923143422692"; // international format, no + or spaces
+const PAYMENT_NUMBER = "0300-1234567"; // JazzCash / Easypaisa
+const WHATSAPP_NUMBER = "923001234567"; // international format, no + or spaces
 const CURRENCY = "$"; // change to "Rs. " if your prices are in PKR
 
 /* ----------------------------- Data ----------------------------- */
@@ -27,9 +26,7 @@ const timelines = ["Flexible", "1 month", "2 weeks", "ASAP"];
 
 const paymentMethods = [
   { id: "card", icon: "💳", title: "Credit / Debit Card", desc: "Visa, Mastercard and more." },
-  { id: "paypal", icon: "💙", title: "PayPal", desc: "Pay with your PayPal balance or linked card." },
-  { id: "bank", icon: "🏦", title: "Bank Transfer", desc: "We'll email you our account details." },
-  { id: "wallet", icon: "📱", title: "Mobile Wallet", desc: "Pay quickly from your phone wallet." },
+  { id: "jazzcash", icon: "📱", title: "JazzCash / Easypaisa", desc: "Manual transfer. Instant confirmation." },
 ];
 
 const stepLabels = ["Service", "Details", "Payment"];
@@ -74,7 +71,6 @@ const priceLabel = (s) => `${formatAmount(s.price)}${s.unit || ""}`;
 function Stepper({ step }) {
   return (
     <div className="relative mb-10">
-      {/* Track */}
       <div className="absolute left-12 right-12 top-5">
         <div className="h-1 rounded-full bg-blush-100" />
         <motion.div
@@ -226,7 +222,7 @@ function DetailsStep({ data, update }) {
             <input
               type="tel"
               className="input-field"
-              placeholder="+1 555 123 4567"
+              placeholder="+92 300 1234567"
               value={data.phone}
               onChange={(e) => update("phone", e.target.value)}
             />
@@ -301,59 +297,6 @@ function PaymentStep({ data, update }) {
           />
         ))}
       </div>
-
-      <AnimatePresence initial={false}>
-        {data.payment === "card" && (
-          <motion.div
-            key="card-fields"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.4, ease }}
-            className="overflow-hidden"
-          >
-            <div className="mt-6 space-y-5 rounded-3xl bg-blush-50 p-6">
-              <Field label="Name on card">
-                <input
-                  className="input-field"
-                  placeholder="Jane Doe"
-                  value={data.cardName}
-                  onChange={(e) => update("cardName", e.target.value)}
-                />
-              </Field>
-              <Field label="Card number">
-                <input
-                  inputMode="numeric"
-                  className="input-field"
-                  placeholder="1234 5678 9012 3456"
-                  value={data.cardNumber}
-                  onChange={(e) => update("cardNumber", formatCard(e.target.value))}
-                />
-              </Field>
-              <div className="grid grid-cols-2 gap-5">
-                <Field label="Expiry">
-                  <input
-                    inputMode="numeric"
-                    className="input-field"
-                    placeholder="MM/YY"
-                    value={data.expiry}
-                    onChange={(e) => update("expiry", formatExpiry(e.target.value))}
-                  />
-                </Field>
-                <Field label="CVC">
-                  <input
-                    inputMode="numeric"
-                    className="input-field"
-                    placeholder="123"
-                    value={data.cvc}
-                    onChange={(e) => update("cvc", e.target.value.replace(/\D/g, "").slice(0, 4))}
-                  />
-                </Field>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </>
   );
 }
@@ -533,9 +476,7 @@ export default function OrderForm() {
         /\S+@\S+\.\S+/.test(data.email) &&
         data.phone.trim().length >= 7 &&
         data.description.trim().length >= 10,
-      data.payment &&
-        (data.payment !== "card" ||
-          (data.cardName.trim() && data.cardNumber.length >= 19 && data.expiry.length === 5 && data.cvc.length >= 3)),
+      data.payment,
     ][step]
   );
 
@@ -549,14 +490,12 @@ export default function OrderForm() {
     e.preventDefault();
     if (!canNext || submitting) return;
 
-    // Steps 1 and 2: just move forward
     if (!isLast) {
       setDirection(1);
       setStep((s) => s + 1);
       return;
     }
 
-    // Final step: send the order to the API
     setSubmitting(true);
     setError("");
 
@@ -576,17 +515,12 @@ export default function OrderForm() {
       const body = await res.json().catch(() => ({}));
 
       if (!res.ok) {
-        const details = body.details?.map((d) => `${d.field}: ${d.message}`).join(", ");
-        throw new Error(details || body.error || "Something went wrong. Please try again.");
+        throw new Error(body.error || "Something went wrong. Please try again.");
       }
 
-      setOrder(body); // success screen only appears after the API confirms
+      setOrder(body.order); // success screen only appears after the API confirms
     } catch (err) {
-      setError(
-        err instanceof TypeError
-          ? "Couldn't reach the server. Please make sure the backend is running on port 4000."
-          : err.message
-      );
+      setError(err.message);
     } finally {
       setSubmitting(false);
     }
@@ -611,7 +545,6 @@ export default function OrderForm() {
       id="order"
       className="relative overflow-hidden bg-gradient-to-b from-cream-100 via-blush-50 to-cream-100 px-6 pb-24 pt-28"
     >
-      {/* Soft background shapes */}
       <div aria-hidden="true" className="pointer-events-none absolute -left-24 top-40 h-72 w-72 rounded-full bg-blush-200/50 blur-2xl" />
       <div aria-hidden="true" className="pointer-events-none absolute -right-24 bottom-20 h-80 w-80 rounded-full bg-sage-200/50 blur-2xl" />
 
@@ -646,7 +579,6 @@ export default function OrderForm() {
                 </motion.div>
               </AnimatePresence>
 
-              {/* Error banner */}
               <AnimatePresence>
                 {error && (
                   <motion.div
