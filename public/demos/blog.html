@@ -1,0 +1,288 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Daily Pulse — News & Stories That Matter</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:#c8312b; --black:#121212; --ink:#1a1a1a; --gray:#6b6b6b; --line:#e5e3df;
+    --white:#fff; --bg:#fcfbf9;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;}
+  h1,h2,h3,h4{font-family:'Libre Baskerville',serif;font-weight:700;line-height:1.2;}
+  a{text-decoration:none;color:inherit;}
+  .container{max-width:1240px;margin:0 auto;padding:0 32px;}
+  .tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--red);margin-bottom:10px;}
+
+  .topbar{background:var(--black);color:#ccc;font-size:12px;padding:8px 0;}
+  .topbar .container{display:flex;justify-content:space-between;align-items:center;}
+  .topbar a{margin-left:18px;}
+
+  nav{position:sticky;top:0;z-index:1000;background:var(--white);border-bottom:2px solid var(--black);}
+  .nav-wrap{display:flex;align-items:center;justify-content:space-between;padding:22px 32px;max-width:1240px;margin:0 auto;}
+  .logo{font-family:'Libre Baskerville',serif;font-weight:700;font-size:30px;letter-spacing:-.5px;}
+  .logo span{color:var(--red);}
+  .nav-links{display:flex;gap:30px;list-style:none;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.5px;}
+  .nav-links a:hover{color:var(--red);}
+  .nav-icons{display:flex;gap:18px;font-size:17px;}
+  .menu-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;}
+  .menu-toggle span{width:24px;height:2px;background:var(--black);}
+  .nav-sub{border-bottom:1px solid var(--line);}
+  .nav-sub .container{display:flex;gap:28px;padding:12px 32px;font-size:13px;font-weight:600;color:var(--gray);overflow-x:auto;}
+  .nav-sub a:hover{color:var(--red);}
+
+  .hero{padding:40px 0 70px;}
+  .hero-grid{display:grid;grid-template-columns:2fr 1fr;gap:40px;}
+  .hero-main{position:relative;border-radius:4px;overflow:hidden;height:460px;background:linear-gradient(160deg,#2b2b2b,#000);display:flex;align-items:flex-end;padding:40px;}
+  .hero-main .hero-ic{position:absolute;top:30px;right:30px;font-size:90px;opacity:.25;}
+  .hero-main-content{position:relative;z-index:2;max-width:560px;}
+  .hero-main-content .tag{background:var(--red);color:white;padding:5px 12px;border-radius:2px;}
+  .hero-main-content h1{color:white;font-size:36px;margin:14px 0 12px;}
+  .hero-main-content p{color:#ddd;font-size:14px;}
+  .hero-side{display:flex;flex-direction:column;gap:24px;}
+  .hero-side-item{display:flex;gap:16px;padding-bottom:22px;border-bottom:1px solid var(--line);}
+  .hero-side-item:last-child{border-bottom:none;}
+  .hero-side-img{width:100px;height:80px;border-radius:4px;flex-shrink:0;background:linear-gradient(160deg,#ddd,#bbb);display:flex;align-items:center;justify-content:center;font-size:28px;}
+  .hero-side-text h4{font-size:15px;margin-bottom:6px;}
+  .hero-side-text p{font-size:12px;color:var(--gray);}
+
+  .sec{padding:60px 0;}
+  .sec-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:34px;border-bottom:3px solid var(--black);padding-bottom:14px;}
+  .sec-head h2{font-size:26px;}
+  .sec-head a{font-size:13px;font-weight:700;color:var(--red);text-transform:uppercase;}
+
+  .articles-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;}
+  .article-card{cursor:pointer;}
+  .article-img{height:180px;border-radius:4px;margin-bottom:16px;background:linear-gradient(160deg,#ddd,#bbb);display:flex;align-items:center;justify-content:center;font-size:40px;}
+  .article-card h3{font-size:17px;margin-bottom:10px;}
+  .article-card p{font-size:13px;color:var(--gray);margin-bottom:10px;}
+  .article-meta{font-size:11px;color:#999;text-transform:uppercase;letter-spacing:.5px;font-weight:700;}
+
+  .split-sec{display:grid;grid-template-columns:2.2fr 1fr;gap:50px;padding:70px 0;border-top:1px solid var(--line);}
+  .featured-list{display:flex;flex-direction:column;gap:26px;}
+  .featured-item{display:grid;grid-template-columns:140px 1fr;gap:20px;padding-bottom:26px;border-bottom:1px solid var(--line);}
+  .featured-img{height:100px;border-radius:4px;background:linear-gradient(160deg,#ddd,#bbb);display:flex;align-items:center;justify-content:center;font-size:30px;}
+  .featured-item h3{font-size:18px;margin-bottom:8px;}
+  .featured-item p{font-size:13px;color:var(--gray);}
+  .sidebar{background:var(--black);color:white;padding:32px 26px;border-radius:6px;height:fit-content;}
+  .sidebar h3{color:white;font-size:18px;margin-bottom:22px;border-bottom:1px solid #333;padding-bottom:14px;}
+  .trending-item{display:flex;gap:14px;margin-bottom:20px;align-items:flex-start;}
+  .trending-num{font-family:'Libre Baskerville',serif;font-size:24px;color:var(--red);font-weight:700;}
+  .trending-item h4{font-size:14px;color:#eee;margin-bottom:4px;}
+  .trending-item span{font-size:11px;color:#999;text-transform:uppercase;}
+
+  .newsletter{background:var(--red);padding:70px 0;text-align:center;}
+  .newsletter h2{color:white;font-size:30px;margin-bottom:14px;}
+  .newsletter p{color:#ffe3e1;margin-bottom:28px;font-family:'Inter',sans-serif;}
+  .newsletter-form{display:flex;max-width:440px;margin:0 auto;gap:10px;}
+  .newsletter-form input{flex:1;padding:14px 18px;border-radius:3px;border:none;font-family:inherit;}
+  .newsletter-form button{padding:14px 26px;border-radius:3px;border:none;background:var(--black);color:white;font-weight:700;cursor:pointer;text-transform:uppercase;font-size:13px;}
+
+  .categories-band{padding:60px 0;}
+  .cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  .cat-card{background:var(--white);border:1px solid var(--line);border-radius:6px;padding:28px;text-align:center;transition:.25s;}
+  .cat-card:hover{border-color:var(--red);transform:translateY(-4px);}
+  .cat-card .ic{font-size:30px;margin-bottom:12px;}
+  .cat-card h4{font-size:15px;margin-bottom:4px;}
+  .cat-card p{font-size:12px;color:var(--gray);}
+
+  footer{background:var(--black);color:#999;padding:70px 0 30px;}
+  .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:50px;}
+  .footer-grid h4{color:white;font-size:14px;margin-bottom:18px;text-transform:uppercase;letter-spacing:1px;}
+  .footer-grid ul{list-style:none;}
+  .footer-grid li{margin-bottom:11px;font-size:14px;}
+  .footer-logo{font-family:'Libre Baskerville',serif;font-size:26px;color:white;margin-bottom:14px;}
+  .footer-logo span{color:var(--red);}
+  .footer-bottom{border-top:1px solid #2a2a2a;padding-top:24px;display:flex;justify-content:space-between;font-size:12px;}
+
+  @media(max-width:1000px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-main{height:360px;}
+    .articles-grid{grid-template-columns:repeat(2,1fr);}
+    .split-sec{grid-template-columns:1fr;}
+    .cat-grid{grid-template-columns:repeat(2,1fr);}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+    .nav-links{display:none;}
+    .menu-toggle{display:flex;}
+    .nav-sub .container{gap:18px;}
+  }
+  @media(max-width:600px){
+    .hero-main-content h1{font-size:26px;}
+    .articles-grid{grid-template-columns:1fr;}
+    .featured-item{grid-template-columns:100px 1fr;}
+    .cat-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+    .footer-bottom{flex-direction:column;gap:10px;text-align:center;}
+    .newsletter-form{flex-direction:column;}
+    .topbar .container{flex-direction:column;gap:6px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container">
+    <span>Monday, November 18, 2026</span>
+    <span><a href="#">Subscribe</a><a href="#">Sign In</a></span>
+  </div>
+</div>
+
+<nav>
+  <div class="nav-wrap">
+    <a href="#" class="logo">The Daily <span>Pulse</span></a>
+    <ul class="nav-links">
+      <li><a href="#">World</a></li>
+      <li><a href="#">Business</a></li>
+      <li><a href="#">Tech</a></li>
+      <li><a href="#">Culture</a></li>
+    </ul>
+    <div class="nav-icons"><span>🔍</span><span>☰</span></div>
+    <div class="menu-toggle"><span></span><span></span><span></span></div>
+  </div>
+  <div class="nav-sub">
+    <div class="container">
+      <a href="#">Politics</a><a href="#">Markets</a><a href="#">Science</a><a href="#">Health</a><a href="#">Sports</a><a href="#">Opinion</a><a href="#">Climate</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-main">
+        <div class="hero-ic">🌐</div>
+        <div class="hero-main-content">
+          <span class="tag">Breaking · World</span>
+          <h1>Global leaders reach landmark climate accord after 72-hour summit</h1>
+          <p>Negotiators from 40 nations agree on binding emissions targets following marathon talks in Geneva.</p>
+        </div>
+      </div>
+      <div class="hero-side">
+        <div class="hero-side-item">
+          <div class="hero-side-img">📈</div>
+          <div class="hero-side-text"><h4>Markets rally as inflation data cools for third straight month</h4><p>Business · 2h ago</p></div>
+        </div>
+        <div class="hero-side-item">
+          <div class="hero-side-img">🧬</div>
+          <div class="hero-side-text"><h4>Researchers unveil breakthrough in early cancer detection</h4><p>Health · 4h ago</p></div>
+        </div>
+        <div class="hero-side-item">
+          <div class="hero-side-img">🚀</div>
+          <div class="hero-side-text"><h4>Private spaceflight company announces new lunar mission timeline</h4><p>Tech · 6h ago</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="container">
+    <div class="sec-head"><h2>Latest Stories</h2><a href="#">View All →</a></div>
+    <div class="articles-grid">
+      <div class="article-card">
+        <div class="article-img">🏛️</div>
+        <span class="tag">Politics</span>
+        <h3>Senate advances bipartisan infrastructure package</h3>
+        <p>Lawmakers reach rare agreement on $400B funding bill.</p>
+        <div class="article-meta">8h ago · 4 min read</div>
+      </div>
+      <div class="article-card">
+        <div class="article-img">💻</div>
+        <span class="tag">Technology</span>
+        <h3>AI chip demand pushes semiconductor stocks to record highs</h3>
+        <p>Industry analysts predict continued growth into next year.</p>
+        <div class="article-meta">10h ago · 3 min read</div>
+      </div>
+      <div class="article-card">
+        <div class="article-img">⚽</div>
+        <span class="tag">Sports</span>
+        <h3>Underdog squad stuns league leaders in dramatic finale</h3>
+        <p>A last-minute goal secures an unlikely upset victory.</p>
+        <div class="article-meta">12h ago · 2 min read</div>
+      </div>
+      <div class="article-card">
+        <div class="article-img">🎬</div>
+        <span class="tag">Culture</span>
+        <h3>Festival favorite breaks box office records on opening weekend</h3>
+        <p>Critics praise the film's bold storytelling approach.</p>
+        <div class="article-meta">1d ago · 3 min read</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="split-sec">
+    <div>
+      <div class="sec-head"><h2>Top Picks</h2><a href="#">More →</a></div>
+      <div class="featured-list">
+        <div class="featured-item">
+          <div class="featured-img">🌍</div>
+          <div><h3>How coastal cities are preparing for rising sea levels</h3><p>A deep dive into engineering solutions being tested worldwide, from floating architecture to tidal barriers.</p></div>
+        </div>
+        <div class="featured-item">
+          <div class="featured-img">💼</div>
+          <div><h3>The quiet rise of four-day work weeks across Europe</h3><p>More companies are piloting shorter work weeks with surprising productivity results.</p></div>
+        </div>
+        <div class="featured-item">
+          <div class="featured-img">🧠</div>
+          <div><h3>Inside the labs racing to build the next generation of AI models</h3><p>A look at the research teams competing to push machine learning forward.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar">
+      <h3>Trending Now</h3>
+      <div class="trending-item"><div class="trending-num">01</div><div><h4>Markets close at record high amid rate cut speculation</h4><span>Business</span></div></div>
+      <div class="trending-item"><div class="trending-num">02</div><div><h4>New study links sleep patterns to long-term memory</h4><span>Health</span></div></div>
+      <div class="trending-item"><div class="trending-num">03</div><div><h4>Streaming giant announces major price restructuring</h4><span>Culture</span></div></div>
+      <div class="trending-item"><div class="trending-num">04</div><div><h4>City council approves new public transit expansion</h4><span>Local</span></div></div>
+    </div>
+  </div>
+</div>
+
+<section class="categories-band">
+  <div class="container">
+    <div class="sec-head"><h2>Browse By Topic</h2></div>
+    <div class="cat-grid">
+      <div class="cat-card"><div class="ic">🌍</div><h4>World News</h4><p>1,240 articles</p></div>
+      <div class="cat-card"><div class="ic">💹</div><h4>Business</h4><p>980 articles</p></div>
+      <div class="cat-card"><div class="ic">🔬</div><h4>Science & Tech</h4><p>760 articles</p></div>
+      <div class="cat-card"><div class="ic">🎭</div><h4>Culture</h4><p>540 articles</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="newsletter">
+  <div class="container">
+    <h2>Never miss the story</h2>
+    <p>Get our top headlines delivered straight to your inbox every morning.</p>
+    <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Subscribed!');">
+      <input type="email" placeholder="Enter your email" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">The Daily <span>Pulse</span></div>
+        <p style="font-size:14px;max-width:280px;">Independent journalism, delivered daily since 2009.</p>
+      </div>
+      <div><h4>Sections</h4><ul><li>World</li><li>Business</li><li>Tech</li><li>Sports</li></ul></div>
+      <div><h4>Company</h4><ul><li>About Us</li><li>Careers</li><li>Advertise</li></ul></div>
+      <div><h4>Legal</h4><ul><li>Privacy Policy</li><li>Terms of Use</li><li>Corrections</li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 The Daily Pulse. All rights reserved.</span>
+      <span>Ethics Policy · Contact</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

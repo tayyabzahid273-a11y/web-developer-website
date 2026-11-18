@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tayyab — Full-Stack Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Inter', sans-serif; background:#fcfbf9; color:#17171a; overflow-x:hidden; }
+  h1,h2,h3 { font-family:'Space Grotesk', sans-serif; }
+  a { text-decoration:none; color:inherit; }
+  .container { max-width:1120px; margin:0 auto; padding:0 24px; }
+
+  header { position:sticky; top:0; z-index:100; background:rgba(252,251,249,0.85); backdrop-filter:blur(10px); border-bottom:1px solid #eee; }
+  nav { display:flex; align-items:center; justify-content:space-between; padding:20px 24px; max-width:1120px; margin:0 auto; }
+  .logo { font-weight:700; font-size:18px; }
+  .logo span { color:#6c5ce7; }
+  .nav-links { display:flex; gap:34px; list-style:none; }
+  .nav-links a { font-size:14px; font-weight:500; color:#444; transition:color .3s; }
+  .nav-links a:hover { color:#6c5ce7; }
+  .btn { display:inline-flex; align-items:center; gap:8px; padding:12px 24px; background:#17171a; color:#fff; border-radius:40px; font-size:13px; font-weight:600; border:none; cursor:pointer; transition:all .3s; }
+  .btn:hover { background:#6c5ce7; transform:translateY(-2px); }
+  .menu-toggle { display:none; font-size:22px; background:none; border:none; cursor:pointer; }
+
+  /* HERO */
+  .hero { min-height:92vh; display:flex; align-items:center; padding-top:40px; position:relative; }
+  .hero::before { content:""; position:absolute; top:-100px; right:-150px; width:450px; height:450px; background:radial-gradient(circle, rgba(108,92,231,0.15), transparent 70%); border-radius:50%; }
+  .hero-inner { display:grid; grid-template-columns:1.1fr 0.9fr; gap:50px; align-items:center; position:relative; z-index:2; }
+  .status-pill { display:inline-flex; align-items:center; gap:8px; background:#eef0ff; color:#6c5ce7; padding:8px 16px; border-radius:40px; font-size:13px; font-weight:600; margin-bottom:24px; }
+  .status-pill .dot { width:7px; height:7px; border-radius:50%; background:#4ade80; }
+  .hero h1 { font-size:52px; line-height:1.1; font-weight:700; margin-bottom:20px; }
+  .hero h1 .accent { color:#6c5ce7; }
+  .hero p { font-size:16px; color:#5c5c66; line-height:1.7; max-width:460px; margin-bottom:34px; }
+  .hero-btns { display:flex; gap:14px; margin-bottom:40px; }
+  .btn-outline { padding:12px 24px; border:1.5px solid #17171a; border-radius:40px; font-size:13px; font-weight:600; }
+  .social-row { display:flex; gap:16px; }
+  .social-row a { width:40px; height:40px; border-radius:50%; border:1px solid #e4e4e4; display:flex; align-items:center; justify-content:center; font-size:16px; transition:all .3s; }
+  .social-row a:hover { background:#17171a; color:#fff; border-color:#17171a; }
+
+  .hero-visual { position:relative; display:flex; align-items:center; justify-content:center; }
+  .avatar-ring { width:320px; height:320px; border-radius:40% 60% 55% 45%/50% 40% 60% 50%; background:linear-gradient(135deg,#6c5ce7,#a29bfe); display:flex; align-items:center; justify-content:center; font-size:110px; box-shadow:0 40px 80px -20px rgba(108,92,231,0.4); }
+  .float-badge { position:absolute; background:#fff; border-radius:16px; padding:14px 18px; box-shadow:0 20px 40px rgba(0,0,0,0.1); font-size:13px; font-weight:600; display:flex; align-items:center; gap:10px; }
+  .float-badge.b1 { top:10px; left:-30px; }
+  .float-badge.b2 { bottom:20px; right:-30px; }
+
+  /* STATS */
+  .stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; padding:60px 0; border-top:1px solid #eee; }
+  .stat h3 { font-size:34px; color:#6c5ce7; } .stat p { font-size:13px; color:#5c5c66; margin-top:4px; }
+
+  .section { padding:100px 0; }
+  .section-head { text-align:center; max-width:600px; margin:0 auto 60px; }
+  .tag-label { color:#6c5ce7; font-size:13px; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:14px; display:block; }
+  .section-head h2 { font-size:38px; font-weight:700; }
+
+  /* SKILLS */
+  .skills-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+  .skill-card { background:#fff; border:1px solid #eee; border-radius:18px; padding:26px; transition:transform .3s, box-shadow .3s; }
+  .skill-card:hover { transform:translateY(-6px); box-shadow:0 24px 50px rgba(0,0,0,0.06); }
+  .skill-card .icon { font-size:30px; margin-bottom:14px; }
+  .skill-card h4 { font-size:15px; margin-bottom:10px; }
+  .bar-track { height:6px; background:#eee; border-radius:10px; overflow:hidden; }
+  .bar-fill { height:100%; background:linear-gradient(90deg,#6c5ce7,#a29bfe); border-radius:10px; }
+
+  /* PROJECTS */
+  .projects-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  .project-card { border-radius:20px; overflow:hidden; background:#fff; border:1px solid #eee; transition:transform .3s, box-shadow .3s; }
+  .project-card:hover { transform:translateY(-8px); box-shadow:0 30px 60px rgba(0,0,0,0.08); }
+  .project-thumb { height:180px; display:flex; align-items:center; justify-content:center; font-size:50px; position:relative; }
+  .project-tag { position:absolute; top:14px; left:14px; background:rgba(255,255,255,0.9); padding:5px 12px; border-radius:20px; font-size:11px; font-weight:600; }
+  .project-body { padding:22px; }
+  .project-body h4 { font-size:16px; margin-bottom:8px; }
+  .project-body p { font-size:13px; color:#5c5c66; line-height:1.6; margin-bottom:16px; }
+  .project-link { font-size:13px; font-weight:600; color:#6c5ce7; }
+
+  /* EXPERIENCE TIMELINE */
+  .timeline { max-width:700px; margin:0 auto; position:relative; padding-left:30px; border-left:2px solid #eee; }
+  .timeline-item { margin-bottom:40px; position:relative; }
+  .timeline-item::before { content:""; position:absolute; left:-38px; top:4px; width:14px; height:14px; border-radius:50%; background:#6c5ce7; border:3px solid #fff; box-shadow:0 0 0 2px #6c5ce7; }
+  .timeline-item span.date { font-size:12px; color:#6c5ce7; font-weight:600; }
+  .timeline-item h4 { font-size:17px; margin:6px 0; }
+  .timeline-item p { font-size:14px; color:#5c5c66; line-height:1.6; }
+
+  /* CONTACT */
+  .contact-box { background:#17171a; border-radius:32px; padding:70px; display:grid; grid-template-columns:1fr 1fr; gap:50px; color:#fff; }
+  .contact-box h2 { font-size:34px; margin-bottom:16px; }
+  .contact-box p { color:rgba(255,255,255,0.6); line-height:1.7; margin-bottom:28px; }
+  .contact-info div { display:flex; align-items:center; gap:12px; font-size:14px; margin-bottom:14px; color:rgba(255,255,255,0.85); }
+  .contact-form input, .contact-form textarea { width:100%; padding:14px 16px; border-radius:10px; border:1px solid rgba(255,255,255,0.15); background:rgba(255,255,255,0.05); color:#fff; margin-bottom:14px; font-family:inherit; font-size:14px; }
+  .contact-form button { width:100%; background:#6c5ce7; }
+  .contact-form button:hover { background:#584bc9; }
+
+  footer { padding:40px 0; text-align:center; font-size:13px; color:#999; border-top:1px solid #eee; }
+
+  @media (max-width:950px){
+    .nav-links { display:none; } .menu-toggle { display:block; }
+    .hero-inner { grid-template-columns:1fr; } .hero h1 { font-size:36px; }
+    .hero-visual { margin-top:30px; } .avatar-ring { width:240px; height:240px; font-size:80px;}
+    .stats-row { grid-template-columns:repeat(2,1fr); }
+    .skills-grid, .projects-grid { grid-template-columns:1fr 1fr; }
+    .contact-box { grid-template-columns:1fr; padding:36px 24px; }
+  }
+  @media (max-width:600px){
+    .skills-grid, .projects-grid { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="#" class="logo">tayyab<span>.dev</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+    </ul>
+    <a href="#contact" class="btn">Let's Talk</a>
+    <button class="menu-toggle">☰</button>
+  </nav>
+</header>
+
+<section class="hero" id="about">
+  <div class="container hero-inner">
+    <div>
+      <div class="status-pill"><span class="dot"></span> Available for freelance work</div>
+      <h1>Hi, I'm Tayyab.<br>I build <span class="accent">digital products.</span></h1>
+      <p>A full-stack developer specializing in React, modern UI/UX, and AI-powered web applications. Turning ideas into fast, beautiful software.</p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn">View My Work</a>
+        <a href="#contact" class="btn-outline">Get In Touch</a>
+      </div>
+      <div class="social-row">
+        <a href="#">in</a><a href="#">gh</a><a href="#">tw</a><a href="#">dr</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="avatar-ring">👨‍💻</div>
+      <div class="float-badge b1">⚡ 5+ Years Exp.</div>
+      <div class="float-badge b2">🚀 15+ Projects</div>
+    </div>
+  </div>
+  <div class="container stats-row">
+    <div class="stat"><h3>5+</h3><p>Years of Experience</p></div>
+    <div class="stat"><h3>40+</h3><p>Projects Completed</p></div>
+    <div class="stat"><h3>98%</h3><p>Client Satisfaction</p></div>
+    <div class="stat"><h3>24/7</h3><p>Support & Maintenance</p></div>
+  </div>
+</section>
+
+<section class="section" id="skills">
+  <div class="container">
+    <div class="section-head"><span class="tag-label">What I Do</span><h2>Skills & Technologies</h2></div>
+    <div class="skills-grid">
+      <div class="skill-card"><div class="icon">⚛️</div><h4>React & Next.js</h4><div class="bar-track"><div class="bar-fill" style="width:95%;"></div></div></div>
+      <div class="skill-card"><div class="icon">🎨</div><h4>UI/UX Design</h4><div class="bar-track"><div class="bar-fill" style="width:90%;"></div></div></div>
+      <div class="skill-card"><div class="icon">🛠️</div><h4>Node.js & APIs</h4><div class="bar-track"><div class="bar-fill" style="width:85%;"></div></div></div>
+      <div class="skill-card"><div class="icon">🤖</div><h4>AI Integration</h4><div class="bar-track"><div class="bar-fill" style="width:80%;"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="projects" style="background:#f6f5f2;">
+  <div class="container">
+    <div class="section-head"><span class="tag-label">Portfolio</span><h2>Selected Projects</h2></div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#6c5ce7,#a29bfe);"><span class="project-tag">AI SaaS</span>🤖</div>
+        <div class="project-body"><h4>Nexus Analytics</h4><p>An AI-powered dashboard for real-time model monitoring.</p><a href="#" class="project-link">View Case Study →</a></div>
+      </div>
+      <div class="project-card">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#00b894,#55efc4);"><span class="project-tag">E-commerce</span>🛍️</div>
+        <div class="project-body"><h4>Lumen Store</h4><p>A minimalist storefront with a 34% increase in conversions.</p><a href="#" class="project-link">View Case Study →</a></div>
+      </div>
+      <div class="project-card">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#e17055,#fab1a0);"><span class="project-tag">Branding</span>🎨</div>
+        <div class="project-body"><h4>Orbit Agency</h4><p>Full brand identity and website for a digital agency.</p><a href="#" class="project-link">View Case Study →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="experience">
+  <div class="container">
+    <div class="section-head"><span class="tag-label">Career</span><h2>Experience Timeline</h2></div>
+    <div class="timeline">
+      <div class="timeline-item"><span class="date">2023 — Present</span><h4>Freelance Full-Stack Developer</h4><p>Building custom web apps and AI-integrated products for clients worldwide.</p></div>
+      <div class="timeline-item"><span class="date">2021 — 2023</span><h4>Frontend Engineer, Orbit Digital</h4><p>Led the UI rebuild for 12+ client products using React and Tailwind CSS.</p></div>
+      <div class="timeline-item"><span class="date">2019 — 2021</span><h4>Junior Web Developer</h4><p>Started my journey building responsive websites and learning modern JS frameworks.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="container">
+    <div class="contact-box">
+      <div>
+        <span class="tag-label" style="color:#a29bfe;">Get In Touch</span>
+        <h2>Let's build something great together.</h2>
+        <p>Have a project in mind? Fill out the form or reach out directly — I'd love to hear about it.</p>
+        <div class="contact-info">
+          <div>📍 Sargodha, Pakistan</div>
+          <div>📧 hello@tayyab.dev</div>
+          <div>📞 +92 300 1234567</div>
+        </div>
+      </div>
+      <form class="contact-form" onsubmit="event.preventDefault(); alert('Message sent! I will get back to you within 24 hours.');">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <textarea rows="4" placeholder="Tell me about your project..." required></textarea>
+        <button type="submit" class="btn">Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Tayyab. Built with HTML & CSS, crafted with ♡.</footer>
+
+</body>
+</html>

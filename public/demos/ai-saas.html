@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexus AI — Analytics Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter', sans-serif; background:#0b0c10; color:#e4e6eb; overflow-x:hidden; }
+  a { text-decoration:none; color:inherit; }
+
+  .app { display:grid; grid-template-columns:260px 1fr; min-height:100vh; }
+
+  /* SIDEBAR */
+  .sidebar { background:#111218; border-right:1px solid #1e2029; padding:28px 20px; display:flex; flex-direction:column; }
+  .sidebar-logo { display:flex; align-items:center; gap:10px; margin-bottom:40px; padding:0 8px; }
+  .sidebar-logo .mark { width:34px; height:34px; border-radius:10px; background:linear-gradient(135deg,#7c5cff,#38bdf8); display:flex; align-items:center; justify-content:center; font-weight:700; }
+  .sidebar-logo span { font-weight:700; font-size:17px; }
+  .nav-section { margin-bottom:28px; }
+  .nav-section p { font-size:11px; text-transform:uppercase; letter-spacing:1.5px; color:#565a6b; margin-bottom:12px; padding:0 8px; }
+  .nav-item { display:flex; align-items:center; gap:12px; padding:11px 12px; border-radius:10px; font-size:14px; font-weight:500; color:#b0b3c0; margin-bottom:4px; transition:all .25s; cursor:pointer; }
+  .nav-item:hover { background:#1a1c24; color:#fff; }
+  .nav-item.active { background:linear-gradient(135deg,rgba(124,92,255,0.15),rgba(56,189,248,0.1)); color:#fff; border:1px solid rgba(124,92,255,0.3); }
+  .nav-item .dot { width:6px; height:6px; border-radius:50%; background:#7c5cff; margin-left:auto; }
+  .sidebar-footer { margin-top:auto; background:#1a1c24; border-radius:14px; padding:18px; }
+  .sidebar-footer h5 { font-size:13px; margin-bottom:6px; }
+  .sidebar-footer p { font-size:11px; color:#8a8d9b; margin-bottom:12px; line-height:1.5; }
+  .upgrade-btn { width:100%; padding:9px; border-radius:8px; background:linear-gradient(135deg,#7c5cff,#38bdf8); border:none; color:#fff; font-size:12px; font-weight:600; cursor:pointer; }
+
+  /* MAIN */
+  .main { padding:26px 36px; overflow-x:hidden; }
+  .topbar { display:flex; align-items:center; justify-content:space-between; margin-bottom:30px; flex-wrap:wrap; gap:16px; }
+  .search-box { display:flex; align-items:center; gap:10px; background:#111218; border:1px solid #1e2029; padding:10px 16px; border-radius:10px; width:320px; max-width:100%; }
+  .search-box input { background:none; border:none; outline:none; color:#fff; font-size:13px; width:100%; font-family:inherit; }
+  .topbar-right { display:flex; align-items:center; gap:18px; }
+  .icon-btn { width:38px; height:38px; border-radius:10px; background:#111218; border:1px solid #1e2029; display:flex; align-items:center; justify-content:center; cursor:pointer; position:relative; }
+  .icon-btn .ping { position:absolute; top:7px; right:8px; width:6px; height:6px; background:#38bdf8; border-radius:50%; }
+  .profile { display:flex; align-items:center; gap:10px; }
+  .avatar { width:38px; height:38px; border-radius:10px; background:linear-gradient(135deg,#7c5cff,#38bdf8); }
+  .profile span { font-size:13px; font-weight:600; }
+  .profile small { display:block; font-size:11px; color:#8a8d9b; font-weight:400; }
+
+  .page-head { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:28px; flex-wrap:wrap; gap:14px; }
+  .page-head h1 { font-size:26px; font-weight:700; }
+  .page-head p { font-size:13px; color:#8a8d9b; margin-top:4px; }
+  .btn-primary { background:linear-gradient(135deg,#7c5cff,#38bdf8); border:none; padding:11px 20px; border-radius:10px; color:#fff; font-size:13px; font-weight:600; cursor:pointer; }
+
+  /* STAT CARDS */
+  .stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-bottom:26px; }
+  .stat-card { background:#111218; border:1px solid #1e2029; border-radius:16px; padding:22px; }
+  .stat-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+  .stat-icon { width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:16px; }
+  .stat-trend { font-size:11px; font-weight:700; padding:4px 8px; border-radius:20px; }
+  .trend-up { background:rgba(74,222,128,0.12); color:#4ade80; }
+  .trend-down { background:rgba(248,113,113,0.12); color:#f87171; }
+  .stat-card h3 { font-size:26px; font-weight:700; margin-bottom:4px; }
+  .stat-card p { font-size:12px; color:#8a8d9b; }
+
+  /* GRID LAYOUT */
+  .grid-2 { display:grid; grid-template-columns:1.6fr 1fr; gap:18px; margin-bottom:18px; }
+  .panel { background:#111218; border:1px solid #1e2029; border-radius:16px; padding:24px; }
+  .panel-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; }
+  .panel-head h3 { font-size:15px; font-weight:600; }
+  .panel-head .tabs { display:flex; gap:6px; }
+  .panel-head .tab { font-size:11px; padding:5px 10px; border-radius:20px; background:#1a1c24; color:#8a8d9b; cursor:pointer; }
+  .panel-head .tab.active { background:rgba(124,92,255,0.15); color:#a78bfa; }
+
+  /* CHART (CSS bars) */
+  .chart { display:flex; align-items:flex-end; gap:14px; height:200px; padding-top:10px; }
+  .bar-col { flex:1; display:flex; flex-direction:column; align-items:center; gap:10px; height:100%; justify-content:flex-end; }
+  .bar { width:100%; border-radius:6px 6px 0 0; background:linear-gradient(180deg,#7c5cff,#38bdf8); opacity:0.85; transition:opacity .3s; }
+  .bar-col:hover .bar { opacity:1; }
+  .bar-col span { font-size:10px; color:#8a8d9b; }
+
+  /* DONUT */
+  .donut-wrap { display:flex; flex-direction:column; align-items:center; }
+  .donut { width:160px; height:160px; border-radius:50%; background:conic-gradient(#7c5cff 0% 45%, #38bdf8 45% 72%, #4ade80 72% 90%, #1e2029 90% 100%); display:flex; align-items:center; justify-content:center; margin-bottom:20px; }
+  .donut-inner { width:108px; height:108px; border-radius:50%; background:#111218; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .donut-inner strong { font-size:20px; } .donut-inner span { font-size:11px; color:#8a8d9b; }
+  .legend { display:flex; flex-direction:column; gap:10px; width:100%; }
+  .legend-item { display:flex; align-items:center; gap:8px; font-size:12px; color:#b0b3c0; }
+  .legend-dot { width:8px; height:8px; border-radius:50%; }
+
+  /* TABLE */
+  table { width:100%; border-collapse:collapse; }
+  th { text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:1px; color:#565a6b; padding:10px 14px; border-bottom:1px solid #1e2029; }
+  td { padding:14px; font-size:13px; border-bottom:1px solid #1a1c24; }
+  .table-user { display:flex; align-items:center; gap:10px; }
+  .mini-avatar { width:30px; height:30px; border-radius:8px; background:linear-gradient(135deg,#7c5cff,#38bdf8); flex-shrink:0; }
+  .status-pill { font-size:11px; padding:4px 10px; border-radius:20px; font-weight:600; }
+  .status-active { background:rgba(74,222,128,0.12); color:#4ade80; }
+  .status-pending { background:rgba(251,191,36,0.12); color:#fbbf24; }
+
+  @media (max-width: 1100px){
+    .app { grid-template-columns:1fr; }
+    .sidebar { display:none; }
+    .stats-grid { grid-template-columns:repeat(2,1fr); }
+    .grid-2 { grid-template-columns:1fr; }
+    .search-box { width:100%; }
+  }
+  @media (max-width: 600px){
+    .main { padding:20px 16px; }
+    .stats-grid { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <aside class="sidebar">
+    <div class="sidebar-logo"><div class="mark">N</div><span>Nexus AI</span></div>
+    <div class="nav-section">
+      <p>Main</p>
+      <div class="nav-item active">📊 Dashboard <span class="dot"></span></div>
+      <div class="nav-item">📈 Analytics</div>
+      <div class="nav-item">🤖 AI Models</div>
+      <div class="nav-item">🗂️ Datasets</div>
+    </div>
+    <div class="nav-section">
+      <p>Workspace</p>
+      <div class="nav-item">👥 Team</div>
+      <div class="nav-item">🔌 Integrations</div>
+      <div class="nav-item">⚙️ Settings</div>
+    </div>
+    <div class="sidebar-footer">
+      <h5>Upgrade to Pro</h5>
+      <p>Unlock advanced AI models and unlimited API calls.</p>
+      <button class="upgrade-btn">Upgrade Now</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="search-box">🔍 <input type="text" placeholder="Search models, datasets, reports..."></div>
+      <div class="topbar-right">
+        <div class="icon-btn">🔔<span class="ping"></span></div>
+        <div class="icon-btn">⚙️</div>
+        <div class="profile">
+          <div class="avatar"></div>
+          <div><span>Sarah Chen</span><small>Product Lead</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-head">
+      <div><h1>Welcome back, Sarah 👋</h1><p>Here's what's happening with your models today.</p></div>
+      <button class="btn-primary">+ New Model</button>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-top"><div class="stat-icon" style="background:rgba(124,92,255,0.12); color:#a78bfa;">⚡</div><span class="stat-trend trend-up">+12.4%</span></div>
+        <h3>48,219</h3><p>API Requests Today</p>
+      </div>
+      <div class="stat-card">
+        <div class="stat-top"><div class="stat-icon" style="background:rgba(56,189,248,0.12); color:#38bdf8;">🤖</div><span class="stat-trend trend-up">+4.1%</span></div>
+        <h3>128</h3><p>Active Models</p>
+      </div>
+      <div class="stat-card">
+        <div class="stat-top"><div class="stat-icon" style="background:rgba(74,222,128,0.12); color:#4ade80;">✅</div><span class="stat-trend trend-up">+2.3%</span></div>
+        <h3>99.2%</h3><p>Model Accuracy</p>
+      </div>
+      <div class="stat-card">
+        <div class="stat-top"><div class="stat-icon" style="background:rgba(248,113,113,0.12); color:#f87171;">⏱️</div><span class="stat-trend trend-down">-0.4%</span></div>
+        <h3>142ms</h3><p>Avg Latency</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-head">
+          <h3>Inference Requests</h3>
+          <div class="tabs"><span class="tab active">Week</span><span class="tab">Month</span><span class="tab">Year</span></div>
+        </div>
+        <div class="chart">
+          <div class="bar-col"><div class="bar" style="height:40%;"></div><span>Mon</span></div>
+          <div class="bar-col"><div class="bar" style="height:65%;"></div><span>Tue</span></div>
+          <div class="bar-col"><div class="bar" style="height:50%;"></div><span>Wed</span></div>
+          <div class="bar-col"><div class="bar" style="height:80%;"></div><span>Thu</span></div>
+          <div class="bar-col"><div class="bar" style="height:60%;"></div><span>Fri</span></div>
+          <div class="bar-col"><div class="bar" style="height:95%;"></div><span>Sat</span></div>
+          <div class="bar-col"><div class="bar" style="height:70%;"></div><span>Sun</span></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Model Usage</h3></div>
+        <div class="donut-wrap">
+          <div class="donut"><div class="donut-inner"><strong>128</strong><span>Models</span></div></div>
+          <div class="legend">
+            <div class="legend-item"><span class="legend-dot" style="background:#7c5cff;"></span> NLP Models — 45%</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#38bdf8;"></span> Vision Models — 27%</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#4ade80;"></span> Audio Models — 18%</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#1e2029;"></span> Other — 10%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head"><h3>Recent Model Activity</h3><a href="#" style="font-size:12px; color:#a78bfa;">View all →</a></div>
+      <table>
+        <thead><tr><th>Model</th><th>Type</th><th>Requests</th><th>Accuracy</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><div class="table-user"><div class="mini-avatar"></div>GPT-Vision-v3</div></td>
+            <td>Multimodal</td><td>12,402</td><td>98.9%</td>
+            <td><span class="status-pill status-active">Active</span></td>
+          </tr>
+          <tr>
+            <td><div class="table-user"><div class="mini-avatar"></div>SentimentNet</td>
+            <td>NLP</td><td>8,214</td><td>96.2%</td>
+            <td><span class="status-pill status-active">Active</span></td>
+          </tr>
+          <tr>
+            <td><div class="table-user"><div class="mini-avatar"></div>AudioClassify-X</td>
+            <td>Audio</td><td>3,109</td><td>91.4%</td>
+            <td><span class="status-pill status-pending">Training</span></td>
+          </tr>
+          <tr>
+            <td><div class="table-user"><div class="mini-avatar"></div>VisionDetect-Pro</td>
+            <td>Vision</td><td>15,887</td><td>99.1%</td>
+            <td><span class="status-pill status-active">Active</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>

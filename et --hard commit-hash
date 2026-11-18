@@ -1,0 +1,77 @@
+[33mcommit 51ad608af7204cc0ca33e11ededddc1b58a40363[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Muhammad Tayyab <tayyabzahid273@gmail.com>
+Date:   Tue Nov 17 13:57:40 2026 +0500
+
+    order form updated
+
+[33mcommit 5a5d718ee01716757be5b1e54ddcad088a15db1a[m
+Author: Muhammad Tayyab <tayyabzahid273@gmail.com>
+Date:   Tue Nov 17 13:36:46 2026 +0500
+
+    updated package.json for deployment
+
+[33mcommit 381cb496f36224a8b3317f6c1bf099c59d2024d0[m
+Author: Muhammad Tayyab <tayyabzahid273@gmail.com>
+Date:   Sat Nov 14 15:23:42 2026 +0500
+
+    added smart ai chatbot with language detection
+
+[33mcommit a77fbe3b2bf002b989b8081e2ee723efbc55b0f6[m
+Author: Muhammad Tayyab <tayyabzahid273@gmail.com>
+Date:   Sat Nov 14 15:15:19 2026 +0500
+
+    upgraded ai chatbot with smart replies
+
+[33mcommit c92d65f67e91e12aff8800a5e00d85bc82ddc93f[m
+Author: Muhammad Tayyab <tayyabzahid273@gmail.com>
+Date:   Sat Nov 14 14:05:28 2026 +0500
+
+    fixed navbar name and mobile menu
+
+[33mcommit 94df8e1749bfa4f56765e141f24b89422b17968d[m
+Author: Muhammad Tayyab <tayyabzahid273@gmail.com>
+Date:   Fri Nov 13 14:49:33 2026 +0500
+
+    added 3d animated magic slider
+
+[33mcommit d77ffa93ba1d558371bd263e3235b4d154de8c22[m
+Author: Muhammad Tayyab <tayyabzahid273@gmail.com>
+Date:   Thu Nov 12 18:26:40 2026 +0500
+
+    added before after slider and mobile fixes
+
+[33mcommit 24f19fa4a167b581cdaea3369441c9e4626ceef4[m
+Author: Muhammad Tayyab <tayyabzahid273@gmail.com>
+Date:   Thu Nov 12 18:22:21 2026 +0500
+
+    mobile responsive design fixed
+
+[33mcommit 4dc1299b533704eb7ca9d6e66845bbcbca63d5b1[m
+Author: Muhammad Tayyab <tayyabzahid273@gmail.com>
+Date:   Thu Nov 12 14:57:13 2026 +0500
+
+    added ai chatbot and premium portfolio
+
+[33mcommit b82fb6487c1fc667951abc4428d657841c3a939d[m
+Author: Muhammad Tayyab <tayyabzahid273@gmail.com>
+Date:   Wed Nov 11 18:36:28 2026 +0500
+
+    added amazing animations and developer themes
+
+[33mcommit 36618f55bc71578760ed081da950b573316a78d2[m
+Author: Muhammad Tayyab <tayyabzahid273@gmail.com>
+Date:   Mon Nov 9 15:53:22 2026 +0500
+
+    connected to supabase
+
+[33mcommit b3f8e83ca1a696367021b4ad9d9d96053b080ee6[m
+Author: Muhammad Tayyab <tayyabzahid273@gmail.com>
+Date:   Mon Nov 9 14:01:12 2026 +0500
+
+    added project details page
+
+[33mcommit d576727708e4b3aadd3e37f70e3727a7cc5a9e0d[m
+Author: Muhammad Tayyab <tayyabzahid273@gmail.com>
+Date:   Sun Nov 8 22:24:20 2026 +0500
+
+    first commit

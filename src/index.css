@@ -1,54 +1,110 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap");
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../tailwind.config.js";
 
-@layer base {
-  :root {
-    --blush: #fde8ea;
-    --cream: #fdf8ee;
-    --sage: #89a67a;
-    --terracotta: #c96f4a;
-    --ink: #3d3330;
-  }
-
-  html {
-    scroll-behavior: smooth;
-  }
-
-  body {
-    @apply bg-cream-100 font-body text-ink antialiased;
-  }
-
-  h1, h2, h3, h4 {
-    @apply font-heading tracking-tight;
-  }
-
-  ::selection {
-    @apply bg-blush-300 text-ink;
-  }
+/* ----------------------------- */
+/* Base Setup & Mobile Fixes     */
+/* ----------------------------- */
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden !important;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
 }
 
-@layer components {
-  .btn-primary {
-    @apply inline-flex items-center justify-center rounded-full bg-terracotta-500 px-6 py-3
-           font-medium text-cream-50 shadow-soft transition
-           hover:bg-terracotta-600 focus:outline-none focus:ring-2 focus:ring-terracotta-300;
-  }
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden !important;
+}
 
-  .btn-secondary {
-    @apply inline-flex items-center justify-center rounded-full border border-sage-300 bg-sage-100
-           px-6 py-3 font-medium text-sage-600 transition hover:bg-sage-200;
-  }
+img,
+svg,
+video {
+  max-width: 100%;
+  height: auto;
+}
 
-  .card {
-    @apply rounded-4xl bg-cream-50 p-6 shadow-card;
-  }
+* {
+  box-sizing: border-box;
+}
 
-  .input-field {
-    @apply w-full rounded-2xl border border-blush-200 bg-cream-50 px-4 py-3 text-ink
-           placeholder:text-ink/40 focus:border-terracotta-400 focus:outline-none
-           focus:ring-2 focus:ring-blush-300;
-  }
+body {
+  background-color: #fdf8ee; /* cream-100 */
+  color: #3d3330; /* ink */
+  font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Fraunces', serif;
+  letter-spacing: -0.025em;
+}
+
+::selection {
+  background-color: #fde8ea; /* blush-100 */
+  color: #3d3330;
+}
+
+/* ----------------------------- */
+/* Custom Classes & Buttons      */
+/* ----------------------------- */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background-color: #c96f4a; /* terracotta-500 */
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  color: #fdf8ee;
+  box-shadow: 0 4px 14px 0 rgba(201, 111, 74, 0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.btn-primary:hover {
+  background-color: #b55e3c; /* terracotta-600 */
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid #89a67a; /* sage-300 */
+  background-color: #e6f0e1;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  color: #4a6b3c;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.btn-secondary:hover {
+  background-color: #d1e3c9;
+}
+
+.card {
+  border-radius: 2rem;
+  background-color: #fdf8ee;
+  padding: 1.5rem;
+  box-shadow: 0 10px 40px -10px rgba(0,0,0,0.05);
+}
+
+.input-field {
+  width: 100%;
+  border-radius: 1rem;
+  border: 1px solid #fde8ea;
+  background-color: #fdf8ee;
+  padding: 0.75rem 1rem;
+  color: #3d3330;
+  outline: none;
+  transition: all 0.3s ease;
+}
+.input-field:focus {
+  border-color: #c96f4a;
+  box-shadow: 0 0 0 2px #fde8ea;
 }
