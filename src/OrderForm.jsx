@@ -3,10 +3,11 @@ import { motion, AnimatePresence } from "framer-motion";
 
 /* ----------------------------- Config ----------------------------- */
 
-const API_URL = "/api/orders";
+// Yahan aapka live Vercel backend URL hai
+const API_URL = "https://web-developer-website-chi.vercel.app/api/orders";
 
-const PAYMENT_NUMBER = "0300-1234567"; // JazzCash / Easypaisa
-const WHATSAPP_NUMBER = "923001234567"; // international format, no + or spaces
+const PAYMENT_NUMBER = "0300-1234567"; // Apna JazzCash/Easypaisa number yahan daalein
+const WHATSAPP_NUMBER = "923001234567"; // Apna WhatsApp number yahan daalein
 const CURRENCY = "$"; // change to "Rs. " if your prices are in PKR
 
 /* ----------------------------- Data ----------------------------- */
@@ -53,13 +54,6 @@ const slide = {
   enter: (dir) => ({ x: dir > 0 ? 60 : -60, opacity: 0 }),
   center: { x: 0, opacity: 1, transition: { duration: 0.45, ease } },
   exit: (dir) => ({ x: dir > 0 ? -60 : 60, opacity: 0, transition: { duration: 0.3, ease } }),
-};
-
-const formatCard = (v) => v.replace(/\D/g, "").slice(0, 16).replace(/(.{4})/g, "$1 ").trim();
-
-const formatExpiry = (v) => {
-  const d = v.replace(/\D/g, "").slice(0, 4);
-  return d.length > 2 ? `${d.slice(0, 2)}/${d.slice(2)}` : d;
 };
 
 const formatAmount = (n) => `${CURRENCY}${n.toLocaleString()}`;
