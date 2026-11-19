@@ -17,7 +17,6 @@ function ProjectCard({ project, onClick }) {
       onClick={() => onClick(project)}
       className="group overflow-hidden rounded-[2rem] bg-cream-50 shadow-card transition-all duration-500 hover:shadow-soft border border-blush-100 sm:rounded-[2.5rem] flex flex-col w-full cursor-pointer"
     >
-      {/* BROWSER WINDOW PREVIEW (Real HTML inside iframe) */}
       <div className="relative w-full aspect-[4/3] bg-white border-b border-blush-100 overflow-hidden">
         
         {/* Browser Top Bar */}
@@ -30,10 +29,10 @@ function ProjectCard({ project, onClick }) {
           </div>
         </div>
 
-        {/* Live HTML Preview (Zoomed out) */}
+        {/* Live Preview Iframe (FIXED PATH) */}
         <div className="absolute inset-0 top-6 w-[200%] h-[200%] scale-50 origin-top-left pointer-events-none overflow-hidden">
           <iframe 
-            src={project.demoUrl} 
+            src={window.location.origin + project.demoUrl} 
             title={project.title} 
             className="w-full h-full border-0"
             scrolling="no"
@@ -49,7 +48,6 @@ function ProjectCard({ project, onClick }) {
         </div>
       </div>
 
-      {/* Info Section */}
       <div className="p-5 sm:p-6 flex flex-col flex-1">
         <div className="flex items-center justify-between mb-2 sm:mb-3">
           <span className="rounded-full bg-sage-100 px-2.5 py-1 text-[10px] font-semibold text-sage-700 sm:px-3 sm:py-1.5 sm:text-xs">
@@ -78,7 +76,7 @@ export default function Portfolio() {
   return (
     <div className="bg-cream-100 min-h-screen w-full max-w-full overflow-x-hidden relative">
       
-      {/* MODAL POPUP */}
+      {/* MODAL POPUP (FIXED PATH) */}
       <AnimatePresence>
         {selectedDemo && (
           <motion.div 
@@ -105,7 +103,7 @@ export default function Portfolio() {
               
               <div className="flex-1 w-full bg-gray-100">
                 <iframe 
-                  src={selectedDemo.demoUrl} 
+                  src={window.location.origin + selectedDemo.demoUrl} 
                   title={selectedDemo.title} 
                   className="w-full h-full border-0"
                 />
