@@ -3,8 +3,7 @@ import Layout from "./components/MainLayout";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Portfolio from "./pages/Portfolio";
-import ProjectDetails from "./pages/ProjectDetails";
-import OrderForm from "./OrderForm";
+import OrderForm from "./OrderForm"; // Agar OrderForm kisi aur folder mein hai toh path check kar lein
 
 function NotFound() {
   return (
@@ -27,7 +26,6 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/portfolio" element={<Portfolio />} />
-          <Route path="/project/:id" element={<ProjectDetails />} />
           <Route path="/order" element={<OrderForm />} />
           <Route path="*" element={<NotFound />} />
         </Route>

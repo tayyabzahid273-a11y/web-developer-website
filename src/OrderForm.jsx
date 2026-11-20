@@ -4,10 +4,10 @@ import { motion, AnimatePresence } from "framer-motion";
 /* ----------------------------- Config ----------------------------- */
 
 // Yahan aapka live Vercel backend URL hai
-const API_URL = "https://web-developer-website-chi.vercel.app/api/orders";
+const API_URL = "https://web-developer-website-gvw9.vercel.app/api/orders";
 
-const PAYMENT_NUMBER = "0300-1234567"; // Apna JazzCash/Easypaisa number yahan daalein
-const WHATSAPP_NUMBER = "923001234567"; // Apna WhatsApp number yahan daalein
+const PAYMENT_NUMBER = "0314-3422692"; // Apna JazzCash/Easypaisa number yahan daalein
+const WHATSAPP_NUMBER = "923143422692"; // Apna WhatsApp number yahan daalein
 const CURRENCY = "$"; // change to "Rs. " if your prices are in PKR
 
 /* ----------------------------- Data ----------------------------- */
