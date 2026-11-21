@@ -1,2 +1,3 @@
 /demos/* /demos/:splat 200
 /* /index.html 200
+/api/orders  https://web-developer-website-gvw9.vercel.app/api/orders  200
