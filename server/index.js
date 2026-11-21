@@ -12,12 +12,15 @@ const prisma = new PrismaClient({
   },
 });
 
-// CORS ko theek kiya gaya hai taake frontend connect ho sake
+// CORS setup (preflight requests ke liye)
 app.use(cors({
-  origin: '*',
+  origin: '*', 
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
+// Preflight requests ko handle karein (Yeh bohot zaroori hai)
+app.options('*', cors());
 
 app.use(express.json());
 
@@ -45,7 +48,6 @@ app.post('/api/orders', async (req, res) => {
       order: newOrder,
     });
   } catch (error) {
-    // Agar error aaye toh terminal mein poora error print hoga taake pata chale masla kya hai
     console.error('❌ Error placing order:', error);
     res.status(500).json({
       success: false,
