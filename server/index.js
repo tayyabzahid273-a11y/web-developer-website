@@ -5,7 +5,6 @@ import { PrismaClient } from '@prisma/client';
 const app = express();
 
 // Vercel Serverless ke liye Prisma connection limit fix
-// Isse Supabase ka connection pool full nahi hota
 const prisma = new PrismaClient({
   datasources: {
     db: {
@@ -14,13 +13,8 @@ const prisma = new PrismaClient({
   },
 });
 
-// CORS setup taake frontend connect ho sake
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
-
+// Sabse simple CORS setup - sab kuch allow karein
+app.use(cors()); 
 app.use(express.json());
 
 // Health check route
@@ -49,7 +43,6 @@ app.post('/api/orders', async (req, res) => {
       order: newOrder,
     });
   } catch (error) {
-    // Agar error aaye toh terminal mein poora error print hoga
     console.error('❌ Error placing order:', error);
     res.status(500).json({
       success: false,
