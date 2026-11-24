@@ -4,30 +4,30 @@ import { PrismaClient } from '@prisma/client';
 
 const app = express();
 
+// Vercel Serverless ke liye Prisma connection limit fix
 const prisma = new PrismaClient({
   datasources: {
     db: {
-      url: process.env.DATABASE_URL,
+      url: process.env.DATABASE_URL + "?connection_limit=1",
     },
   },
 });
 
-// CORS setup (preflight requests ke liye)
+// CORS setup
 app.use(cors({
-  origin: '*', 
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-// Preflight requests ko handle karein (Yeh bohot zaroori hai)
-app.options('*', cors());
-
 app.use(express.json());
 
+// Health check route
 app.get('/api', (req, res) => {
   res.send('Backend is running on Vercel! 🚀');
 });
 
+// Order creation route
 app.post('/api/orders', async (req, res) => {
   try {
     const { customerName, email, phone, service, amount } = req.body;
