@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
-const WHATSAPP_NUMBER = "923001234567"; // Apna number yahan daalein
+const WHATSAPP_NUMBER = "923143422692"; // Apna number yahan daalein
 const ease = [0.22, 1, 0.36, 1];
 const STORAGE_KEY = "tayyab-chat-v1";
 const MAX_STORED_MESSAGES = 50;
