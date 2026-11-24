@@ -30,6 +30,3 @@
 /demos/startup          /startup          200
 /demos/travel.html      /travel.html      200
 /demos/travel           /travel           200
-
-# API Proxy to Vercel Backend
-/api/orders  https://web-developer-website-gvw9.vercel.app/api/orders  200
