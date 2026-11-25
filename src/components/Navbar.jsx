@@ -12,13 +12,13 @@ const links = [
 
 function Logo() {
   return (
-    <Link to="/" className="flex items-center gap-3 shrink-0 relative z-50">
+    <Link to="/" className="flex items-center gap-2 shrink-0 relative z-50">
       <img 
         src="/logo.png" 
         alt="Web Developer" 
-        className="h-10 w-10 object-contain rounded-md" 
+        className="h-8 w-8 object-contain rounded-md" 
       />
-      <span className="font-heading text-lg font-semibold text-ink sm:text-xl">
+      <span className="font-heading text-base font-semibold text-ink sm:text-xl">
         Web Developer
       </span>
     </Link>
@@ -104,8 +104,9 @@ export default function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <motion.div variants={menuVariants} initial="hidden" animate="show" exit="exit" className="fixed inset-0 z-40 flex flex-col bg-cream-100/98 backdrop-blur-2xl md:hidden">
-            {/* Yahan se maine duplicate Logo aur button hata diya hai */}
-            <div className="flex items-center justify-end px-4 py-3 mt-16 sm:px-6">
+            {/* Yahan sirf ek Logo aur ek Close button hai */}
+            <div className="flex items-center justify-between px-4 py-3 mt-16 sm:px-6">
+              <Logo />
               <button aria-label="Close menu" onClick={() => setIsOpen(false)} className="flex h-10 w-10 items-center justify-center rounded-full bg-cream-50 text-xl font-light text-ink shadow-card">
                 ✕
               </button>
