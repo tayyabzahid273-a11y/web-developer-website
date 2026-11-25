@@ -17,11 +17,14 @@ function Logo({ onClick }) {
       onClick={onClick}
       className="relative z-50 flex min-w-0 shrink items-center gap-2"
     >
-      <img
-        src="/logo.png"
-        alt="Web Developer"
-        className="h-8 w-8 shrink-0 rounded-md object-contain sm:h-9 sm:w-9 lg:h-10 lg:w-10"
-      />
+      {/* Yahan image ko chote box mein fit kiya hai */}
+      <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full border border-blush-200 bg-cream-50 flex items-center justify-center">
+        <img
+          src="/logo.png"
+          alt="Web Developer"
+          className="h-16 w-auto object-contain -mt-3"
+        />
+      </div>
       <span className="truncate font-heading text-base font-semibold text-ink sm:text-lg lg:text-xl">
         Web Developer
       </span>
