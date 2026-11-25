@@ -17,7 +17,7 @@ function Logo({ onClick }) {
       onClick={onClick}
       className="relative z-50 flex min-w-0 shrink items-center gap-2"
     >
-      {/* Yahan image ko chote box mein fit kiya hai */}
+      {/* Logo ko chote circle ke andar fit kiya hai */}
       <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full border border-blush-200 bg-cream-50 flex items-center justify-center">
         <img
           src="/logo.png"
