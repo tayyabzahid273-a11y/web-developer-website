@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 /* ----------------------------- Config ----------------------------- */
+
 const API_URL = "/api/orders";
 const PAYMENT_NUMBER = "0314-3422692"; // Apna JazzCash/Easypaisa number yahan daalein
 const WHATSAPP_NUMBER = "923143422692"; // Apna WhatsApp number yahan daalein
