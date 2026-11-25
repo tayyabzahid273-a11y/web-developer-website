@@ -37,8 +37,6 @@ function Navbar() {
       }`}
     >
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
-        
-        {/* Logo & Name - Sahi size ke sath */}
         <Link to="/" className="flex items-center gap-2 sm:gap-3">
           <img src="/logo.png" alt="Web Developer" className="h-8 w-auto rounded-md sm:h-10" />
           <span className="font-heading text-lg font-semibold text-ink sm:text-xl">
@@ -46,7 +44,6 @@ function Navbar() {
           </span>
         </Link>
 
-        {/* Desktop Links */}
         <ul className="hidden items-center gap-8 md:flex">
           {navLinks.map((link) => (
             <li key={link.to}>
@@ -68,12 +65,10 @@ function Navbar() {
           ))}
         </ul>
 
-        {/* Desktop CTA Button */}
         <Link to="/order" className="btn-primary hidden !px-5 !py-2.5 text-sm md:inline-flex">
           Start an Order
         </Link>
 
-        {/* Mobile Hamburger */}
         <button
           onClick={() => setOpen((o) => !o)}
           aria-label="Toggle menu"
@@ -85,7 +80,6 @@ function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {open && (
           <motion.div
