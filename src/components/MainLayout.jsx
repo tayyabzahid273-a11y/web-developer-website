@@ -1,18 +1,15 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import AIChatWidget from "./AIChatWidget";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
 
 const ease = [0.22, 1, 0.36, 1];
 
 const navLinks = [
   { label: "Home", to: "/" },
   { label: "About", to: "/about" },
-  { label: "Portfolio", to: "/portfolio" },
+  { label: "Demos", to: "/portfolio" },
 ];
-
-/* ----------------------------- Navbar ----------------------------- */
 
 function Navbar() {
   const [open, setOpen] = useState(false);
@@ -39,14 +36,17 @@ function Navbar() {
         scrolled || open ? "bg-cream-50/90 shadow-card backdrop-blur-md" : "bg-transparent"
       }`}
     >
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Link to="/" className="flex items-center gap-3">
-          <img src="/logo.png" alt="Web Developer" className="h-9 w-auto rounded-md" />
-          <span className="font-heading text-xl font-semibold text-ink hidden sm:block">
+      <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
+        
+        {/* Logo & Name - Sahi size ke sath */}
+        <Link to="/" className="flex items-center gap-2 sm:gap-3">
+          <img src="/logo.png" alt="Web Developer" className="h-8 w-auto rounded-md sm:h-10" />
+          <span className="font-heading text-lg font-semibold text-ink sm:text-xl">
             Web Developer
           </span>
         </Link>
 
+        {/* Desktop Links */}
         <ul className="hidden items-center gap-8 md:flex">
           {navLinks.map((link) => (
             <li key={link.to}>
@@ -68,10 +68,12 @@ function Navbar() {
           ))}
         </ul>
 
+        {/* Desktop CTA Button */}
         <Link to="/order" className="btn-primary hidden !px-5 !py-2.5 text-sm md:inline-flex">
           Start an Order
         </Link>
 
+        {/* Mobile Hamburger */}
         <button
           onClick={() => setOpen((o) => !o)}
           aria-label="Toggle menu"
@@ -83,6 +85,7 @@ function Navbar() {
         </button>
       </nav>
 
+      {/* Mobile Menu */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -121,8 +124,6 @@ function Navbar() {
   );
 }
 
-/* ------------------------------ Footer ------------------------------ */
-
 function Footer() {
   return (
     <footer id="contact" className="bg-ink text-cream-100">
@@ -137,7 +138,6 @@ function Footer() {
               A cozy web design studio making thoughtful, beautiful websites for brands that care about the details.
             </p>
           </div>
-
           <div>
             <h4 className="mb-4 font-heading text-lg">Explore</h4>
             <ul className="space-y-2 text-cream-100/60">
@@ -150,17 +150,15 @@ function Footer() {
               ))}
             </ul>
           </div>
-
           <div>
             <h4 className="mb-4 font-heading text-lg">Say hello</h4>
             <ul className="space-y-2 text-cream-100/60">
               <li>hello@webdeveloper.com</li>
-              <li>+92 300 0000000</li>
+              <li>+92 314 3422692</li>
               <li>Mon–Fri, 9am–6pm</li>
             </ul>
           </div>
         </div>
-
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-cream-100/10 pt-6 text-sm text-cream-100/50 sm:flex-row">
           <p>© {new Date().getFullYear()} Web Developer. All rights reserved.</p>
           <p>Made with 🌸 and a lot of pastel.</p>
@@ -169,8 +167,6 @@ function Footer() {
     </footer>
   );
 }
-
-/* ------------------------------ Layout ------------------------------ */
 
 export default function Layout() {
   const { pathname } = useLocation();

@@ -1,194 +1,216 @@
 import { useState, useEffect } from "react";
-import AIChatWidget from "./AIChatWidget";
-import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 const ease = [0.22, 1, 0.36, 1];
 
-const navLinks = [
-  { label: "Home", to: "/" },
-  { label: "About", to: "/about" },
-  { label: "Demos", to: "/portfolio" },
+const links = [
+  { to: "/", label: "Home" },
+  { to: "/about", label: "About" },
+  { to: "/portfolio", label: "Demos" },
 ];
 
-function Navbar() {
-  const [open, setOpen] = useState(false);
+function Logo({ onClick }) {
+  return (
+    <Link
+      to="/"
+      onClick={onClick}
+      className="relative z-50 flex min-w-0 shrink items-center gap-2"
+    >
+      {/* Logo ko chote circle ke andar fit kiya hai */}
+      <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full border border-blush-200 bg-cream-50 flex items-center justify-center">
+        <img
+          src="/logo.png"
+          alt="Web Developer"
+          className="h-16 w-auto object-contain -mt-3"
+        />
+      </div>
+      <span className="truncate font-heading text-base font-semibold text-ink sm:text-lg lg:text-xl">
+        Web Developer
+      </span>
+    </Link>
+  );
+}
+
+function HamburgerIcon({ open }) {
+  return (
+    <div className="relative flex h-5 w-5 flex-col justify-between">
+      <motion.span
+        animate={open ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
+        transition={{ duration: 0.3, ease }}
+        className="h-0.5 w-full rounded-full bg-ink"
+      />
+      <motion.span
+        animate={open ? { opacity: 0 } : { opacity: 1 }}
+        transition={{ duration: 0.2 }}
+        className="h-0.5 w-full rounded-full bg-ink"
+      />
+      <motion.span
+        animate={open ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
+        transition={{ duration: 0.3, ease }}
+        className="h-0.5 w-full rounded-full bg-ink"
+      />
+    </div>
+  );
+}
+
+const menuVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { duration: 0.3, ease, staggerChildren: 0.08, delayChildren: 0.15 },
+  },
+  exit: { opacity: 0, transition: { duration: 0.25, ease } },
+};
+
+const linkVariants = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease } },
+  exit: { opacity: 0, y: 12, transition: { duration: 0.2 } },
+};
+
+export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { pathname } = useLocation();
+  const location = useLocation();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    setIsOpen(false);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10);
     onScroll();
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
-
   return (
-    <motion.header
-      initial={{ y: -80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.7, ease }}
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled || open ? "bg-cream-50/90 shadow-card backdrop-blur-md" : "bg-transparent"
-      }`}
-    >
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
-        
-        {/* Logo & Name - Desktop par chota, Mobile par thora bara */}
-        <Link to="/" className="flex items-center gap-2 sm:gap-3">
-          <img src="/logo.png" alt="Web Developer" className="h-8 w-auto rounded-md sm:h-10" />
-          <span className="font-heading text-lg font-semibold text-ink sm:text-xl">
-            Web Developer
-          </span>
-        </Link>
+    <>
+      <header
+        className={`fixed inset-x-0 top-0 z-50 w-full transition-all duration-300 ${
+          scrolled
+            ? "border-b border-blush-100 bg-cream-100/90 shadow-card backdrop-blur-xl"
+            : "border-b border-transparent bg-cream-100/40 backdrop-blur-md"
+        }`}
+      >
+        <nav className="mx-auto flex min-h-14 max-w-7xl items-center justify-between gap-3 px-3 py-2.5 sm:min-h-16 sm:px-6 sm:py-3 lg:px-8">
+          <Logo onClick={() => setIsOpen(false)} />
 
-        {/* Desktop Links */}
-        <ul className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => (
-            <li key={link.to}>
-              <NavLink to={link.to} end={link.to === "/"} className="group relative text-sm font-medium transition">
+          <div className="hidden items-center gap-2 lg:flex xl:gap-4">
+            {links.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                end={link.to === "/"}
+                className={({ isActive }) =>
+                  `relative rounded-full px-3 py-2 text-sm font-medium transition-colors duration-300 xl:px-4 ${
+                    isActive
+                      ? "text-terracotta-600"
+                      : "text-ink/70 hover:text-ink"
+                  }`
+                }
+              >
                 {({ isActive }) => (
                   <>
-                    <span className={isActive ? "text-terracotta-600" : "text-ink/80 group-hover:text-terracotta-600"}>
-                      {link.label}
-                    </span>
-                    <span
-                      className={`absolute -bottom-1 left-0 h-0.5 bg-terracotta-400 transition-all duration-300 ${
-                        isActive ? "w-full" : "w-0 group-hover:w-full"
-                      }`}
-                    />
+                    {link.label}
+                    {isActive && (
+                      <motion.span
+                        layoutId="navbar-active-pill"
+                        className="absolute inset-0 -z-10 rounded-full bg-blush-100"
+                        transition={{ duration: 0.3, ease }}
+                      />
+                    )}
                   </>
                 )}
               </NavLink>
-            </li>
-          ))}
-        </ul>
+            ))}
 
-        {/* Desktop CTA Button */}
-        <Link to="/order" className="btn-primary hidden !px-5 !py-2.5 text-sm md:inline-flex">
-          Start an Order
-        </Link>
+            <motion.div
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
+              className="ml-1"
+            >
+              <Link
+                to="/order"
+                className="btn-primary whitespace-nowrap !px-4 !py-2.5 text-sm shadow-soft xl:!px-5"
+              >
+                Start an Order
+              </Link>
+            </motion.div>
+          </div>
 
-        {/* Mobile Hamburger */}
-        <button
-          onClick={() => setOpen((o) => !o)}
-          aria-label="Toggle menu"
-          className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden z-50"
-        >
-          <motion.span animate={open ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }} className="h-0.5 w-6 bg-ink" />
-          <motion.span animate={{ opacity: open ? 0 : 1 }} className="h-0.5 w-6 bg-ink" />
-          <motion.span animate={open ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }} className="h-0.5 w-6 bg-ink" />
-        </button>
-      </nav>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="absolute top-full left-0 right-0 bg-cream-50 border-t border-blush-100 shadow-xl md:hidden overflow-hidden"
+          <button
+            type="button"
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isOpen}
+            onClick={() => setIsOpen((previous) => !previous)}
+            className="relative z-50 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cream-50 shadow-card focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracotta-600 lg:hidden"
           >
-            <ul className="flex flex-col gap-2 p-4">
-              {navLinks.map((link) => (
-                <li key={link.to}>
+            <HamburgerIcon open={isOpen} />
+          </button>
+        </nav>
+      </header>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            variants={menuVariants}
+            initial="hidden"
+            animate="show"
+            exit="exit"
+            className="fixed inset-0 z-40 flex flex-col overflow-y-auto bg-cream-100/98 pt-14 backdrop-blur-2xl sm:pt-16 lg:hidden"
+          >
+            <div className="flex items-center justify-between gap-3 px-3 py-3 sm:px-6">
+              <Logo onClick={() => setIsOpen(false)} />
+              <button
+                type="button"
+                aria-label="Close menu"
+                onClick={() => setIsOpen(false)}
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cream-50 text-xl font-light text-ink shadow-card focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracotta-600"
+              >
+                ×
+              </button>
+            </div>
+
+            <div className="flex flex-1 flex-col items-center justify-center gap-1 px-5 py-8">
+              {links.map((link) => (
+                <motion.div key={link.to} variants={linkVariants}>
                   <NavLink
                     to={link.to}
                     end={link.to === "/"}
                     className={({ isActive }) =>
-                      `block rounded-xl px-4 py-3 text-base font-medium transition-colors ${
-                        isActive ? "bg-blush-100 text-terracotta-600" : "text-ink/80 hover:bg-blush-50"
+                      `block py-2 text-center font-heading text-3xl font-semibold transition-colors duration-300 sm:text-4xl ${
+                        isActive
+                          ? "text-terracotta-500 italic"
+                          : "text-ink"
                       }`
                     }
                   >
                     {link.label}
                   </NavLink>
-                </li>
+                </motion.div>
               ))}
-              <li className="mt-2">
-                <Link to="/order" className="btn-primary w-full text-center py-3">
+
+              <motion.div variants={linkVariants} className="mt-6">
+                <Link
+                  to="/order"
+                  className="btn-primary whitespace-nowrap text-sm shadow-soft sm:text-base"
+                >
                   Start an Order
                 </Link>
-              </li>
-            </ul>
+              </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.header>
-  );
-}
-
-function Footer() {
-  return (
-    <footer id="contact" className="bg-ink text-cream-100">
-      <div className="mx-auto max-w-6xl px-6 py-16">
-        <div className="grid gap-12 md:grid-cols-4">
-          <div className="md:col-span-2">
-            <div className="mb-4 flex items-center gap-3">
-              <img src="/logo.png" alt="Web Developer" className="h-10 w-auto rounded-md" />
-              <span className="font-heading text-xl font-semibold text-cream-100">Web Developer</span>
-            </div>
-            <p className="max-w-sm text-cream-100/60">
-              A cozy web design studio making thoughtful, beautiful websites for brands that care about the details.
-            </p>
-          </div>
-          <div>
-            <h4 className="mb-4 font-heading text-lg">Explore</h4>
-            <ul className="space-y-2 text-cream-100/60">
-              {[...navLinks, { label: "Order", to: "/order" }].map((l) => (
-                <li key={l.to}>
-                  <Link to={l.to} className="transition hover:text-blush-300">
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h4 className="mb-4 font-heading text-lg">Say hello</h4>
-            <ul className="space-y-2 text-cream-100/60">
-              <li>hello@webdeveloper.com</li>
-              <li>+92 314 3422692</li>
-              <li>Mon–Fri, 9am–6pm</li>
-            </ul>
-          </div>
-        </div>
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-cream-100/10 pt-6 text-sm text-cream-100/50 sm:flex-row">
-          <p>© {new Date().getFullYear()} Web Developer. All rights reserved.</p>
-          <p>Made with 🌸 and a lot of pastel.</p>
-        </div>
-      </div>
-    </footer>
-  );
-}
-
-export default function Layout() {
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-
-  return (
-    <div className="flex min-h-screen flex-col">
-      <Navbar />
-      <motion.main
-        key={pathname}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.4 }}
-        className="flex-1"
-      >
-        <Outlet />
-      </motion.main>
-      <Footer />
-      <AIChatWidget />
-    </div>
+    </>
   );
 }
